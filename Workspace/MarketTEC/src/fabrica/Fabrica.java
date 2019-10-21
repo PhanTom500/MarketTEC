@@ -1,5 +1,6 @@
 package fabrica;
 
+import dao.ProductoDAO;
 import dao.UsuarioDAO;
 import dao.UsuarioFbDAO;
 
@@ -12,6 +13,7 @@ public abstract class Fabrica {
 
 	//Se inscribe el dao alumno a las fábricas
 	public abstract UsuarioDAO getUsuarioDAO();
+	public abstract ProductoDAO getProductoDAO();
 	public abstract UsuarioFbDAO getUsuarioFbDAO(); 
 	
 	//Va fabricar subfabricas (Mysql y sqlserver)

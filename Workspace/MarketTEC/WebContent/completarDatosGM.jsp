@@ -1,8 +1,8 @@
 <%@page import="rest_fb.User_Profile"%>
 <%@page import="rest_fb.Get_User_Details"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-   <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+ <%@taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -11,31 +11,44 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="OneTech shop project">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google-signin-client_id" content="553838659224-v4i0ehjeblhe4v10bh38cj52oi6ihnrd.apps.googleusercontent.com">
+
 <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 <link href="plugins/fontawesome-free-5.0.1/css/fontawesome-all.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="styles/contact_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/contact_responsive.css">
 
+<%
+	String id = (String) request.getParameter("id");
+	String name = (String) request.getParameter("name");
+	String email = (String) request.getParameter("email");
+%>
+
 </head>
 
 <body>
 
-			
 <%
-	
-	String nom = (String) request.getParameter("nom");
-	String cor = (String) request.getParameter("cor");
-%>
+			String access_token=(String)request.getParameter("access_token");
+			
+			
+			Get_User_Details obj_Get_User_Details=new Get_User_Details();
+			
+			//User_Profile obj_User_Profile=obj_Get_User_Details.Get_Profile_info(access_token);
+			
+			//obj_Get_User_Details.Get_Profile_info_v2(access_token);
+			
+			User_Profile obj_User_Profile=obj_Get_User_Details.Get_Profile_info_v2(access_token);
+			
+			%>
 			
 
 <div class="super_container">
 	
-	<!-- Header -->
-	
 	<header class="header">
 		<jsp:include page="header.jsp" />
 	</header>
-
+	
 	<!-- Contact Info -->
 
 	<div class="contact_info">
@@ -84,20 +97,24 @@
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact_form_container">
-						<div class="contact_form_title">Mi cuenta</div>
+						<div class="contact_form_title">Completar Registro</div>
 
-						<form action="#" id="contact_form">
+						<form action="usuario"  id="contact_form">
+							<input type="hidden" name="metodo" value="registralogin" >
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
 								<h3>Nombres:</h3>
-								<input type="text" id="contact_form_name" class="contact_form_name input_field" value="${user.getNombres()}" required="required" data-error="Name is required." readonly="readonly" ><br>
+								<input type="text" id="contact_form_name" class="contact_form_name input_field" name="nombres" value="<%=name%>" placeholder="Ingrese su nombre completo" required="required" data-error="Name is required." readonly="readonly" ><br>
 								<h3>Correo:</h3>
-								<input type="text" id="contact_form_email" class="contact_form_email input_field" value="${user.getCorreo()}" required="required" data-error="Email is required." readonly="readonly">
-								
-								
+								<input type="text" id="contact_form_email" class="contact_form_email input_field" name="correo" value="<%=email%>" placeholder="Ingrese su correo" required="required" data-error="Email is required." readonly="readonly">
+							</div>
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<h3>Contraseña:</h3>
+								<input type="password" id="contact_form_email" class="contact_form_email input_field" name="pass" placeholder="Ingrese una contraseña" required="required" data-error="Password is required.">
 							</div>
 							
 							<div class="contact_form_button">
-								<button type="submit" class="button contact_submit_button" onclick="window.location.href='/MarketTEC/index.jsp'">Volver</button>
+								<button type="reset" class="button contact_submit_button" onclick="window.location.href='/MarketTEC/login.jsp'">Volver</button>
+								<button type="submit" class="button contact_submit_button" onclick="">Registrar</button>
 							</div>
 						</form>
 
@@ -259,20 +276,33 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 <script src="js/contact_custom.js"></script>
 
-<script type="text/javascript">
-		function cerrarSessionUser() {
-			
-			HttpServletRequest request = ServletActionContext.getRequest();
-			HttpServletResponse response = ServletActionContext.getResponse();
-			HttpSession sess = request.getSession();
-			sess.setAttribute("user", null);
-			sess.invalidate();
 
-			//window.location.href = 'index.jsp';
-			
+<!-- Scripts de datos para GMAIL -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src='//production-assets.codepen.io/assets/editor/live/console_runner-079c09a0e3b9ff743e39ee2d5637b9216b3545af0de366d4b9aad9dc87e26bfd.js'></script>
+<script src='//production-assets.codepen.io/assets/editor/live/css_live_reload_init-2c0dc5167d60a5af3ee189d570b1835129687ea2a61bee3513dee3a50c115a77.js'></script>
 
-		}
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrapValidator.js"></script>
+<script src="js/codigos.js" type="text/javascript"></script>
+
+
+
+
+<script>
+	function myFunction() {
+		gapi.auth2.getAuthInstance().disconnect();
+		//location.reload();
+
+		window.location.href = 'index.jsp';
+	}
 </script>
+
 
 
 </body>

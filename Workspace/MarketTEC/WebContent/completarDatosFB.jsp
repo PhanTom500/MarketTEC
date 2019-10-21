@@ -20,22 +20,27 @@
 
 <body>
 
-			
 <%
-	
-	String nom = (String) request.getParameter("nom");
-	String cor = (String) request.getParameter("cor");
-%>
+			String access_token=(String)request.getParameter("access_token");
+			
+			
+			Get_User_Details obj_Get_User_Details=new Get_User_Details();
+			
+			//User_Profile obj_User_Profile=obj_Get_User_Details.Get_Profile_info(access_token);
+			
+			//obj_Get_User_Details.Get_Profile_info_v2(access_token);
+			
+			User_Profile obj_User_Profile=obj_Get_User_Details.Get_Profile_info_v2(access_token);
+			
+			%>
 			
 
 <div class="super_container">
 	
-	<!-- Header -->
-	
 	<header class="header">
 		<jsp:include page="header.jsp" />
 	</header>
-
+	
 	<!-- Contact Info -->
 
 	<div class="contact_info">
@@ -84,20 +89,25 @@
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1">
 					<div class="contact_form_container">
-						<div class="contact_form_title">Mi cuenta</div>
+						<div class="contact_form_title">Completar Registro</div>
 
-						<form action="#" id="contact_form">
+						<form action="usuario" id="contact_form">
+							<input type="hidden" name="metodo" value="registralogin" >
 							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
 								<h3>Nombres:</h3>
-								<input type="text" id="contact_form_name" class="contact_form_name input_field" value="${user.getNombres()}" required="required" data-error="Name is required." readonly="readonly" ><br>
+								<input type="text" id="contact_form_name" class="contact_form_name input_field" name="nombres" value="<%=obj_User_Profile.getName() %>" required="required" data-error="Name is required." readonly="readonly"><br>
 								<h3>Correo:</h3>
-								<input type="text" id="contact_form_email" class="contact_form_email input_field" value="${user.getCorreo()}" required="required" data-error="Email is required." readonly="readonly">
-								
-								
+								<input type="text" id="contact_form_email" class="contact_form_email input_field" name="correo" value="<%=obj_User_Profile.getEmail() %>" required="required" data-error="Email is required." readonly="readonly">
+							</div>
+							
+							<div class="contact_form_inputs d-flex flex-md-row flex-column justify-content-between align-items-between">
+								<h3>Contraseña:</h3>
+								<input type="password" id="contact_form_email" class="contact_form_email input_field" name="pass" placeholder="Ingrese una contraseña" required="required" data-error="Password is required.">
 							</div>
 							
 							<div class="contact_form_button">
-								<button type="submit" class="button contact_submit_button" onclick="window.location.href='/MarketTEC/index.jsp'">Volver</button>
+								<button type="reset" class="button contact_submit_button" onclick="window.location.href='/MarketTEC/login.jsp'">Volver</button>
+								<button type="submit" class="button contact_submit_button" onclick="">Registrar</button>
 							</div>
 						</form>
 
@@ -258,23 +268,6 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="plugins/easing/easing.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
 <script src="js/contact_custom.js"></script>
-
-<script type="text/javascript">
-		function cerrarSessionUser() {
-			
-			HttpServletRequest request = ServletActionContext.getRequest();
-			HttpServletResponse response = ServletActionContext.getResponse();
-			HttpSession sess = request.getSession();
-			sess.setAttribute("user", null);
-			sess.invalidate();
-
-			//window.location.href = 'index.jsp';
-			
-
-		}
-</script>
-
-
 </body>
 
 </html>

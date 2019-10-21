@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.ProductoBean;
 import bean.UsuarioBean;
+import dao.ProductoDAO;
 import dao.UsuarioDAO;
 import fabrica.Fabrica;
 
@@ -30,8 +32,12 @@ public class ServletUsuario extends HttpServlet {
 			elimina(request, response);
 		}else if(metodo.equals("actualiza")){
 			actualiza(request, response);
+		}else if(metodo.equals("home")){
+			home(request, response);
 		}else if(metodo.equals("login")){
 			login(request, response);
+		}else if(metodo.equals("logout")){
+			logout(request, response);
 		}else if(metodo.equals("loginAdmin")){
 			loginAdmin(request, response);
 		}else if(metodo.equals("registralogin")){
@@ -131,11 +137,15 @@ public class ServletUsuario extends HttpServlet {
 		
 		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
 		UsuarioDAO dao = fabrica.getUsuarioDAO();
+		ProductoDAO daoP = fabrica.getProductoDAO();
 		
 		String cor = request.getParameter("correo");
 		String pas = request.getParameter("pass");
+		String filtro = "";
 		
 		List<UsuarioBean> lista = null;
+		List<ProductoBean> listaP = null;
+		List<ProductoBean> nuevoP = null;
 		try {
 			UsuarioBean obj = new UsuarioBean();
 			obj.setCorreo(cor);
@@ -143,15 +153,23 @@ public class ServletUsuario extends HttpServlet {
 			
 			
 			lista =  dao.login(obj);
+			listaP =  daoP.consultaProducto(filtro);
+			nuevoP = daoP.consultaNuevoProducto();
+			
 			if(lista.size()==0) {
+				
+				request.setAttribute("productos", lista);
+				request.setAttribute("nuevoP", nuevoP);
 				
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
 			}
 			
 			if(lista.size()>0) {
 				sess.setAttribute("user", lista.get(0));
-				//response.sendRedirect("home");
-				request.getRequestDispatcher("/index_user_log_log.jsp").forward(request, response);
+				
+				request.setAttribute("productos", lista);
+				request.setAttribute("nuevoP", nuevoP);
+				request.getRequestDispatcher("/index.jsp").forward(request, response);
 			}
 			
 		} catch (Exception e) {
@@ -220,18 +238,17 @@ public class ServletUsuario extends HttpServlet {
 		System.out.println("En home");
 		try {
 			if(sess.getAttribute("user")!=null) {
-				
+				//request.getRequestDispatcher("/index.jsp").forward(request, response);
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		//request.setAttribute("usuarios", lista);
-		request.getRequestDispatcher("/index_user_log.jsp").forward(request, response);
+		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 	
 	protected void registralogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession sess = request.getSession();
 		
 		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
 		UsuarioDAO dao = fabrica.getUsuarioDAO();
@@ -239,6 +256,10 @@ public class ServletUsuario extends HttpServlet {
 		String nom = request.getParameter("nombres");
 		String cor = request.getParameter("correo");
 		String pas = request.getParameter("pass");
+		
+		if (nom != null || cor != null || pas != null) {
+			
+		}
 		
 		
 		
@@ -250,11 +271,15 @@ public class ServletUsuario extends HttpServlet {
 
 			dao.insertaUsuario(obj);
 			
+			//JOptionPane.showConfirmDialog(null, "Nice");
+			
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		//request.setAttribute("usuarios", lista);
-		request.getRequestDispatcher("/index_user_log.jsp?nom=" + nom + "&cor=" + cor ).forward(request, response);
+		
 		
 		
 		

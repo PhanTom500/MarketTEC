@@ -1592,12 +1592,16 @@ input {
 				<p class="mssg">An email has been sent to you with further
 					instructions.</p>
 			</div>
+			
+			<form id="form_head_index" action="producto" class="header_search_form clearfix" method="post">
+				<input type="hidden" name="metodo" value="pindex">
+			</form>
 
 			<!-- SLIDER -->
 			<div class="content">
 				<!-- LOGO -->
 				<div class="logo">
-					<a href="index.jsp"><img src="image/logo.png" alt=""></a>
+					<a href="javascript:$('#form_head_index').submit();"><img src="image/logo.png" alt=""></a>
 				</div>
 				<!-- SLIDESHOW -->
 				<div id="slideshow">
@@ -1834,7 +1838,7 @@ input {
 
 				//window.location.href = 'Sign_in_Controller.jsp?access_token=' + response.authResponse.accessToken;
 				
-				window.location.href = 'index_fb_log.jsp?access_token=' + response.authResponse.accessToken;
+				window.location.href = 'completarDatosFB.jsp?access_token=' + response.authResponse.accessToken;
 
 			} else {
 				// The person is not logged into your app or we are unable to tell.
@@ -1895,7 +1899,7 @@ input {
 			//alert('3');
 			var email = profile.getEmail();
 
-			window.location.href = 'index_gmail_log.jsp?id=' + id + '&name=' + name + '&email=' + email +' ';
+			window.location.href = 'completarDatosGM.jsp?id=' + id + '&name=' + name + '&email=' + email +' ';
 			
 
 		}
@@ -1906,6 +1910,13 @@ input {
 		function validaFb() {
 
 			window.location.href = 'index_gmail_log.jsp?id=' + id + '&name=' + name + '&email=' + email +' ';
+			
+
+		}
+		
+		function alertaRegistro() {
+			alert('Registro Exitoso, ingrese al sistema');
+			//window.location.href = 'index_gmail_log.jsp?id=' + id + '&name=' + name + '&email=' + email +' ';
 			
 
 		}

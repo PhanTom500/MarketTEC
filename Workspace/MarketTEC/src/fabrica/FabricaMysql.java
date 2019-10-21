@@ -1,7 +1,9 @@
 package fabrica;
 
+import dao.MySqlProductoDAO;
 import dao.MySqlUsuarioDAO;
 import dao.MySqlUsuarioFbDAO;
+import dao.ProductoDAO;
 import dao.UsuarioDAO;
 import dao.UsuarioFbDAO;
 
@@ -21,7 +23,12 @@ public class FabricaMysql extends Fabrica{
 		return new MySqlUsuarioFbDAO();
 	}
 
-	//Sirve para crear el objeto producto dao
+	@Override
+	public ProductoDAO getProductoDAO() {
+		return new MySqlProductoDAO();
+	}
+
+	
 	
 }
 

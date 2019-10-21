@@ -260,6 +260,82 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
+        	nombres: {
+        		selector : '#id_reg_nombres',
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre es un campo obligatorio'
+                    },
+                    stringLength :{
+                    	message:'El nombre es de 5 a 100 caracteres',
+                    	min : 5,
+                    	max : 100
+                    }
+                }
+            },
+            correo: {
+        		selector : '#id_reg_correo',
+                validators: {
+                    notEmpty: {
+                        message: 'El correo es un campo obligatorio'
+                    },
+                    regexp: {
+                    	message : 'Formato de correo incorrecto',
+                        regexp : /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/                 
+                    }
+                }
+            },
+            pass: {
+        		selector : '#id_reg_pass',
+                validators: {
+                    notEmpty: {
+                        message: 'La contraseña es un campo obligatorio'
+                    },
+                    stringLength :{
+                    	message:'La contraseña es de 5 a 100 caracteres',
+                    	min : 8,
+                    	max : 100
+                    }
+                }
+            },
+            nombres: {
+        		selector : '#id_nombres',
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre es un campo obligatorio'
+                    },
+                    stringLength :{
+                    	message:'El nombre es de 5 a 100 caracteres',
+                    	min : 5,
+                    	max : 100
+                    }
+                }
+            },
+            correo: {
+        		selector : '#id_correo',
+                validators: {
+                    notEmpty: {
+                        message: 'El correo es un campo obligatorio'
+                    },
+                    regexp: {
+                    	message : 'Formato de correo incorrecto',
+                        regexp : /^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$/                 
+                    }
+                }
+            },
+            pass: {
+        		selector : '#id_pass',
+                validators: {
+                    notEmpty: {
+                        message: 'La contraseña es un campo obligatorio'
+                    },
+                    stringLength :{
+                    	message:'La contraseña es de 5 a 100 caracteres',
+                    	min : 5,
+                    	max : 100
+                    }
+                }
+            },
            
        	}    
      }).on('error.form.bv', function(e) {

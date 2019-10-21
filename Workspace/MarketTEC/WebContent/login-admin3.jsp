@@ -87,13 +87,13 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./login-admin2.jsp" class="nav-link active">
+                <a href="./login-admin2.jsp" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Usuarios</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./login-admin3.jsp" class="nav-link">
+                <a href="./login-admin3.jsp" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Productos</p>
                 </a>
@@ -510,20 +510,21 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
   	<br>
- 	<h1>Mantenimiento de Usuarios</h1>
+ 	<div class="container">
+ <h1>Crud de Producto</h1>
 		 <div class="col-md-23" >  
-			  <form id="idFormElimina" action="usuario">
+			  <form id="idFormElimina" action="producto">
 			  		<input type="hidden" name="metodo" value="elimina">
 			  		<input type="hidden" id="id_elimina" name="id">
 			  </form>	
 				
-		       <form accept-charset="UTF-8"  action="usuario" class="simple_form" id="defaultForm2"  method="post">
+		       <form accept-charset="UTF-8"  action="producto" class="simple_form" id="defaultForm2"  method="post">
 		       		<input type="hidden" name="metodo" value="lista">
-		       		<div class="row">
+					<div class="row">
 						<div class="col-md-3">	
 							<div class="form-group">
-							  	<label class="control-label" for="id_nonbre_filtro">NOMBRE</label>
-							  	<input class="form-control" id="id_nonbre_filtro"  name="filtro" placeholder="Ingrese el nombre" type="text" maxlength="30"/>
+							  	<label class="control-label" for="id_nombre_filtro">Nombre</label>
+							  	<input class="form-control" id="id_nombre_filtro"  name="filtro" placeholder="Ingrese el nombre" type="text" maxlength="70"/>
 							</div>
 						</div>
 					</div>			
@@ -539,39 +540,43 @@
 						<div class="col-md-12">
 								<div class="content" >
 						
-									<table id="tableAlumno" class="table table-striped table-bordered" >
+									<table class="table" class="table table-striped table-bordered" >
 										<thead>
 											<tr>
 												<th>ID</th>
-												<th>Nombres</th>
-												<th>Correo</th>
-												<th>Pass</th>
+												<th>Nombre</th>
+												<th>Precio</th>
+												<th>Stock</th>
+												<th>Imagen</th>
 												<th>Actualiza </th>
 												<th>Elimina </th>
 											</tr>
 										</thead>
 										<tbody>
 												     
-												<c:forEach items="${usuarios}" var="x">
+												<c:forEach items="${productos}" var="x">
 													<tr>
-														<td>${x.idUsuario}</td>
-														<td>${x.nombres}</td>
-														<td>${x.correo}</td>
-														<td>${x.pass}</td>
+														<td>${x.idProducto}</td>
+														<td>${x.nombre}</td>
+														<td>${x.precio}</td>
+														<td>${x.stock}</td>
+
+														<td><img src="${x.imagen}" height="40"/></td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idUsuario}','${x.nombres}','${x.correo}','${x.pass}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+															<button type='button' data-toggle='modal' onclick="editar('${x.idProducto}','${x.nombre}','${x.descripcion}','${x.precio}','${x.stock}','${x.imagen}','${x.categoria}','${x.fecRegistro}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
 																<img src='images/edit.gif' width='auto' height='auto' />
 															</button>
 														</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="eliminar('${x.idUsuario}');">
+															<button type='button' data-toggle='modal' onclick="eliminar('${x.idProducto}');">
 																<img src='images/delete.gif' width='auto' height='auto' />
 															</button>
 														</td>
 													</tr>
 												</c:forEach>
 										</tbody>
-										</table>	
+										
+									</table>	
 									
 								</div>	
 						</div>
@@ -579,45 +584,81 @@
 		 		</form>
 		  </div>
   
-  	 <div class="modal fade" id="idModalRegistra" >
+  		 <div class="modal fade" id="idModalRegistra" >
 			<div class="modal-dialog" style="width: 60%">
 		
 				<!-- Modal content-->
 				<div class="modal-content">
 				<div class="modal-header" style="padding: 35px 50px">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de usuario</h4>
+					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Producto</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="defaultForm" accept-charset="UTF-8" action="usuario" class="form-horizontal"     method="post">
+						<form id="defaultForm" accept-charset="UTF-8" action="producto" class="form-horizontal" method="post">
 							<input type="hidden" name="metodo" value="registra" >
-							
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
 		                            <div class="panel-heading">
-		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Usuario</a></h4>
+		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Producto</a></h4>
 		                            </div>
 		                            <div id="stepOne" class="panel-collapse collapse in">
 		                                <div class="panel-body">
 		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_nombres">Nombres</label>
+		                                        <label class="col-lg-3 control-label" for="id_reg_nombre">Nombre</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_nombres" name="nombres" placeholder="Ingrese el Nombre Completo" type="text" maxlength="40"/>
+													<input class="form-control" id="id_reg_nombre" name="nombre" placeholder="Ingrese el Nombre" type="text" maxlength="70"/>
 		                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_correo">Correo</label>
+		                                        <label class="col-lg-3 control-label" for="id_reg_descripcion">Descripción</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_correo" name="correo" placeholder="Ingrese el correo" type="email" maxlength="20"/>
+													<textarea id="id_reg_descripcion" name="descripcion" cols="60" rows="10" placeholder="Ingrese una descripcion" maxlength="20000" ></textarea>
 		                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_pass">Pass</label>
+		                                        <label class="col-lg-3 control-label" for="id_reg_precio">Precio</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_pass" name="pass" placeholder="Ingrese la contraseña" type="password" maxlength="20"/>
+													<input class="form-control" id="id_reg_precio" name="precio" placeholder="Ingrese el precio" type="text" maxlength="70"/>
 		                                        </div>
-		                                    </div>    
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_reg_stock">Stock</label>
+		                                        <div class="col-lg-5">
+													<input class="form-control" id="id_reg_stock" name="stock" placeholder="Ingrese el stock" type="text" maxlength="70"/>
+		                                        </div>
+		                                    </div>
+											<div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_reg_imagen">Link de Imagen</label>
+		                                        <div class="col-lg-5">
+													<input class="form-control" id="id_reg_imagen" name="imagen" placeholder="Ingrese el link de la imagen" type="text" maxlength="70" onchange="document.getElementById('imagendos').src=this.value;" />
+		                                        </div>
+		                                        <label class="col-lg-3 control-label" for="id_reg_imagen">Subir a <a href="https://imgur.com/" target="_blank">https://imgur.com/</a> </label> 
+		                                    </div>
+		                                    <div class="form-group">
+                                                <label class="col-lg-3 control-label" for="id_reg_previaFoto"></label>
+                                                <div class="col-lg-5">
+                                                		
+                                                    <img id="imagendos" src="" height="250px"/>
+                                                </div>
+                                           </div>
+										   <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_reg_categoria">Categoria</label>
+		                                        <div class="col-lg-5">
+													<select id="id_cboCategoria" name="categoria"   class="form-control">
+														<option value=" " >[ Seleccione ]</option>
+														<option value="Computers & Laptops" >Computers & Laptops</option>
+														<option value="Cameras & Photos" >Cameras & Photos</option>
+														<option value="Hardware" >Hardware</option>
+														<option value="Smartphones & Tablets" >Smartphones & Tablets</option>
+														<option value="TV & Audio" >TV & Audio</option>
+														<option value="Gadgets" >Gadgets</option>
+														<option value="Car Electronics" >Car Electronics</option>
+														<option value="Video Games &; Consoles" >Video Games & Consoles</option>
+														<option value="Accessories" >Accessories</option>
+													</select>
+		                                        </div>
+		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="col-lg-9 col-lg-offset-3">
 		                                        	<button type="submit" class="btn btn-primary">REGISTRA</button>
@@ -643,16 +684,16 @@
 				<div class="modal-content">
 				<div class="modal-header" style="padding: 35px 50px">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza usuario</h4>
+					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Producto</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="defaultForm" accept-charset="UTF-8"  action="usuario" class="form-horizontal"     method="post">
+						<form id="defaultForm" accept-charset="UTF-8"  action="producto" class="form-horizontal" method="post">
 							<input type="hidden" name="metodo" value="actualiza" >
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
 		                        <div class="panel panel-default">
 		                            <div class="panel-heading">
-		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Usuario</a></h4>
+		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Producto</a></h4>
 		                            </div>
 		                            <div id="stepOne" class="panel-collapse collapse in">
 		                                <div class="panel-body">
@@ -663,23 +704,60 @@
 		                                        </div>
 		                                     </div>
 		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_nombres">Nombres</label>
+		                                        <label class="col-lg-3 control-label" for="id_reg_nombre">Nombre</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_nombres" name="nombres" placeholder="Ingrese el Nombre Completo" type="text" maxlength="40"/>
+													<input class="form-control" id="id_reg_nombre" name="nombre" placeholder="Ingrese el Nombre" type="text" maxlength="70"/>
 		                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_correo">Correo</label>
+		                                        <label class="col-lg-3 control-label" for="id_reg_descripcion">Descripción</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_correo" name="correo" placeholder="Ingrese el correo" type="text" maxlength="20"/>
+													<textarea id="id_reg_descripcion" name="descripcion" cols="60" rows="10" placeholder="Ingrese una descripcion" maxlength="20000" ></textarea>
 		                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_pass">Pass</label>
+		                                        <label class="col-lg-3 control-label" for="id_reg_precio">Precio</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_pass" name="pass" placeholder="Ingrese la contraseña" type="text" maxlength="20"/>
+													<input class="form-control" id="id_reg_precio" name="precio" placeholder="Ingrese el precio" type="text" maxlength="70"/>
 		                                        </div>
-		                                    </div>    
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_reg_stock">Stock</label>
+		                                        <div class="col-lg-5">
+													<input class="form-control" id="id_reg_stock" name="stock" placeholder="Ingrese el stock" type="text" maxlength="70"/>
+		                                        </div>
+		                                    </div>
+											<div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_reg_imagen">Link de Imagen</label>
+		                                        <div class="col-lg-5">
+													<input class="form-control" id="id_reg_imagen" name="imagen" placeholder="Ingrese el link de la imagen" type="text" maxlength="70" onchange="document.getElementById('imagentres').src=this.value;" />
+		                                        </div>
+		                                        <label class="col-lg-3 control-label" for="id_reg_imagen">Subir a <a href="https://imgur.com/" target="_blank">https://imgur.com/</a> </label> 
+		                                    </div>
+		                                    <div class="form-group">
+                                                <label class="col-lg-3 control-label" for="id_reg_previaFoto"></label>
+                                                <div class="col-lg-5">
+                                                		
+                                                    <img id="imagentres" src="" height="250px"/>
+                                                </div>
+                                           </div>
+										   <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_reg_categoria">Categoria</label>
+		                                        <div class="col-lg-5">
+													<select id="id_cboCategoria" name="categoria"   class="form-control">
+														<option value=" " >[ Seleccione ]</option>
+														<option value="Computadoras & Laptops" >Computadoras & Laptops</option>
+														<option value="Cameras & Photos" >Cameras & Photos</option>
+														<option value="Hardware" >Hardware</option>
+														<option value="Smartphones & Tablets" >Smartphones & Tablets</option>
+														<option value="TV & Audio" >TV & Audio</option>
+														<option value="Gadgets" >Gadgets</option>
+														<option value="Electronicos de Coches" >Electronicos de Coches</option>
+														<option value="Video Juegos & Consolas" >Video Juegos & Consolas</option>
+														<option value="Accesorios" >Accesorios</option>
+													</select>
+		                                        </div>
+		                                    </div>
 		                                    <div class="form-group">
 		                                        <div class="col-lg-9 col-lg-offset-3">
 		                                        	<button type="submit" class="btn btn-primary">ACTUALIZA</button>
@@ -761,26 +839,31 @@ function eliminar(id){
 	
 }
 
-function registrar(){	
+function registrar(){
 	$('#idModalRegistra').modal("show");
 }
 
-function editar(id,nombres,correo,pass){	
-	//document.getElementById("id_nombre").value ="ELBITA"
+function formReset()
+{
+document.getElementById("defaultForm").reset();
+}
+
+function editar(id,nombre,descripcion,precio,stock,imagen,categoria,fecRegistro){	
 	
 	$('input[id=id_ID]').val(id);
-	$('input[id=id_nombres]').val(nombres);
-	$('input[id=id_correo]').val(correo);
-	$('input[id=id_pass]').val(pass);
-	//$('select[id=id_estado]').val(estado);
+	$('input[id=id_reg_nombre]').val(nombre);
+	$('[id=id_reg_descripcion]').val(descripcion);
+	$('[id=id_reg_precio]').val(precio);
+	$('[id=id_reg_stock]').val(stock);
+	$('[id=id_reg_imagen]').val(imagen);
+	$('[id=id_cboCategoria]').val(categoria);
 	$('#idModalActualiza').modal("show");
+	formReset();
 }
 
 $(document).ready(function() {
-    $('#tableAlumno').DataTable();
+    $('#table').DataTable();
 } );
-
-
 </script>
 
 <script type="text/javascript">
@@ -794,6 +877,72 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
+        	nombre: {
+        		selector : '#id_reg_nombre',
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre es un campo obligatorio'
+                    },
+                    stringLength :{
+                    	message:'El nombre es de 5 a 75 caracteres',
+                    	min : 5,
+                    	max : 75
+                    }
+                }
+            },
+            descripcion: {
+            	selector : '#id_reg_descripcion',
+                validators: {
+                    notEmpty: {
+                        message: 'La descripcion es un campo obligatorio'
+                    },
+                    stringLength :{
+                    	message:'La descripcion no debe pasarse de 600',
+                    	min : 1,
+                    	max : 600
+                    }
+                }
+            },
+            precio: {
+        		selector : '#id_reg_precio',
+                validators: {
+                    notEmpty: {
+                        message: 'El precio es un campo obligatorio'
+                    },
+                    regexp: {
+                    	message : 'El precio debe ser un valor numerico',
+                        regexp : /^[1-9]\d{0,7}(?:.\d{1,4})?$/                 
+                    }
+                }
+            },
+            stock: {
+        		selector : '#id_reg_stock',
+                validators: {
+                    notEmpty: {
+                        message: 'El stock es un campo obligatorio'
+                    },
+                    regexp: {
+                    	message : 'El stock debe ser un numero entero y no debe ser muy alto',
+                        regexp : /^[1-9]\d{0,7}$/                 
+                    }
+                }
+            },
+            imagen: {
+        		selector : '#id_reg_imagen',
+                validators: {
+                    notEmpty: {
+                        message: 'La imagen es un campo obligatorio'
+                    }
+                }
+            },
+            categoria: {
+        		selector : '#id_cboCategoria',
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione una categoria'
+                    }
+                }
+            },
            
        	}    
      }).on('error.form.bv', function(e) {
