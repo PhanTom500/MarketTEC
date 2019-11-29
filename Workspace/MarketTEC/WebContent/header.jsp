@@ -88,12 +88,28 @@
 									</div>
 								</c:when>
 								<c:otherwise>
+									
+									<c:choose>
+										<c:when test="${user.tipo==1}">
+											<div class="user_icon">
+												<img src="images/logo-admin.jpg" alt="">
+											</div>
+											<div>
+												<a href="login-admin.jsp" class="hvr-overline-from-center scroll">Panel Admin</a>
+											</div>
+										</c:when>
+										<c:otherwise>
+											
+										</c:otherwise>
+									</c:choose>
+									
 									<div class="user_icon">
 										<img src="images/user.svg" alt="">
 									</div>
 									<div>
-										<a href="datos_email_log.jsp" class="hvr-overline-from-center scroll">Mi cuenta</a>
+										<a href="javascript:$('#form_head_cuenta').submit();" class="hvr-overline-from-center scroll">Mi cuenta</a>
 									</div>
+									
 									<div>
 										<form class="login-form" action="usuario" method="post">
 											<input type="hidden" name="metodo" value="logout">
@@ -121,17 +137,34 @@
 				<div class="col-lg-2 col-sm-3 col-3 order-1">
 					<div class="logo_container">
 						<div class="logo">
-							<a href="#">MarkeTEC</a>
+							<a href="javascript:$('#form_head_index').submit();">MarkeTEC</a>
 						</div>
 					</div>
 				</div>
 				<form id="form_head_index" action="producto" class="header_search_form clearfix" method="post">
 					<input type="hidden" name="metodo" value="pindex">
+					<input type="hidden" name="idUsuario" value="${user.idUsuario }">
 				</form>
-
+				
+				<form id="form_head_cuenta" action="pedido" class="header_search_form clearfix" method="post">
+					<input type="hidden" name="metodo" value="listaPedidoPorUsuario">
+					<input type="hidden" name="idUsuario" value="${user.idUsuario }">
+				</form>
+				
+				<form id="form_favorito" action="producto" class="header_search_form clearfix" method="post">
+					<input type="hidden" name="metodo" value="listaFav">
+					<input type="hidden" name="idUsuario" value="${user.idUsuario }">
+				</form>
+				
+				<form id="form_registraFav" action="producto">
+					<input type="hidden" name="metodo" value="registraFav">
+					<input type="hidden" id="id_regIdPro" name="idPro">
+					<input type="hidden" name="idUsu" value="${user.idUsuario }">
+				</form>
+				
+				
 				<!-- Search -->
-				<div
-					class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
+				<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
 					<div class="header_search">
 						<div class="header_search_content">
 							<div class="header_search_form_container">
@@ -165,24 +198,49 @@
 				</div>
 
 				<!-- Wishlist -->
-				<div
-					class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
-					<div
-						class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
-
+				<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
+					<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+						
+						<c:choose>
+							<c:when test="${user==null }">
+								<div class="wishlist d-flex flex-row align-items-center justify-content-end">
+									<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
+									<div class="wishlist_content">
+										<div class="wishlist_text"><a href="favoritos.jsp">Favoritos</a></div>
+										<div class="wishlist_count"></div>
+									</div>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="wishlist d-flex flex-row align-items-center justify-content-end">
+									<div class="wishlist_icon"><img src="images/heart.png" alt=""></div>
+									<div class="wishlist_content">
+										<div class="wishlist_text"><a href="javascript:$('#form_favorito').submit();">Favoritos</a></div>
+										<c:forEach items="${cantFavoritos}" var="f">
+											<div class="wishlist_count">${f.cantidad}</div>
+										</c:forEach>
+										
+									</div>
+								</div>
+							</c:otherwise>
+						</c:choose>
+						
+						
 						<!-- Cart -->
 						<div class="cart">
 							<div
 								class="cart_container d-flex flex-row align-items-center justify-content-end">
 								<div class="cart_icon">
 									<img src="images/cart.png" alt="">
+									 
 									<div class="cart_count">
-										<span>0</span>
+										<span></span>
 									</div>
+									 
 								</div>
 								<div class="cart_content">
 									<div class="cart_text">
-										<a href="#">Carrito</a>
+										<a href="carrito.jsp">Carrito</a>
 									</div>
 								</div>
 							</div>
@@ -416,6 +474,9 @@
 		</div>
 	</div>
 	
+	
+	
+	
 	<script type="text/javascript" >
 		function cerrarSessionUser() {
 			
@@ -431,5 +492,31 @@
 			
 
 		}
+		
 	</script>
+	
+	<script>            
+		(function(b,c){
+			var e=document.createElement('link');
+			e.rel='stylesheet',e.type='text/css',
+			e.href='https://chatboxlive.blahbox.net/static/css/main.css',
+			document.getElementsByTagName('head')[0].appendChild(e);
+			var f=document.createElement('script');
+			f.onload=function(){
+				var g;
+				if(c)
+					g='previewInit';
+				else{
+					var h=document.createElement('div');
+					g='cbinit',
+					h.id='cbinit',
+					document.body.append(h)}            
+				console.log(document.querySelector('#'+g)),
+				chatbox.initChat(document.querySelector('#'+g),b,c)},
+				f.src='https://chatboxlive.blahbox.net/static/js/chat-lib.js',
+				document.getElementsByTagName('head')[0].appendChild(f)})('33c30fa8c410ad0c0dde3793fd5974ce', 0);          
+	
+	</script>
+	
+	
 </body>

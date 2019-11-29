@@ -49,6 +49,9 @@ public class ServletUsuario extends HttpServlet {
 		UsuarioDAO dao = fabrica.getUsuarioDAO();
 		
 		String filtro = request.getParameter("filtro");
+		if(filtro == null) {
+			filtro = "";
+		}
 		List<UsuarioBean> lista = null;
 		try {
 			lista =  dao.consultaUsuario(filtro);
@@ -66,6 +69,7 @@ public class ServletUsuario extends HttpServlet {
 		String nom = request.getParameter("nombres");
 		String cor = request.getParameter("correo");
 		String pas = request.getParameter("pass");
+		int tip = Integer.parseInt(request.getParameter("tipo"));
 		
 		
 		List<UsuarioBean> lista = null;
@@ -74,6 +78,7 @@ public class ServletUsuario extends HttpServlet {
 			obj.setNombres(nom);
 			obj.setCorreo(cor);
 			obj.setPass(pas);
+			obj.setTipo(tip);
 
 			dao.insertaUsuario(obj);
 			lista =  dao.consultaUsuario("");
@@ -111,6 +116,8 @@ public class ServletUsuario extends HttpServlet {
 		String nom = request.getParameter("nombres");
 		String cor = request.getParameter("correo");
 		String pas = request.getParameter("pass");
+		int tip = Integer.parseInt(request.getParameter("tipo"));
+		
 		
 		List<UsuarioBean> lista = null;
 		try {
@@ -119,6 +126,8 @@ public class ServletUsuario extends HttpServlet {
 			obj.setNombres(nom);
 			obj.setCorreo(cor);
 			obj.setPass(pas);
+			obj.setTipo(tip);
+			
 			dao.actualizaUsuario(obj);
 			lista =  dao.consultaUsuario("");
 		} catch (Exception e) {
@@ -158,7 +167,7 @@ public class ServletUsuario extends HttpServlet {
 			
 			if(lista.size()==0) {
 				
-				request.setAttribute("productos", lista);
+				request.setAttribute("productos", listaP);
 				request.setAttribute("nuevoP", nuevoP);
 				
 				request.getRequestDispatcher("/login.jsp").forward(request, response);
@@ -167,9 +176,11 @@ public class ServletUsuario extends HttpServlet {
 			if(lista.size()>0) {
 				sess.setAttribute("user", lista.get(0));
 				
-				request.setAttribute("productos", lista);
+				request.setAttribute("productos", listaP);
 				request.setAttribute("nuevoP", nuevoP);
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+				ServletProducto sp=new ServletProducto();
+				sp.pindex(request, response);
+				//request.getRequestDispatcher("/index.jsp").forward(request, response);
 			}
 			
 		} catch (Exception e) {
@@ -182,12 +193,30 @@ public class ServletUsuario extends HttpServlet {
 	protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession sess = request.getSession();
 		
+		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
+		
+		ProductoDAO daoP = fabrica.getProductoDAO();
+		
+		String filtro = "";
+		
+		List<ProductoBean> listaP = null;
+		List<ProductoBean> nuevoP = null;
+		
 		try {
+			
+			listaP =  daoP.consultaProducto(filtro);
+			nuevoP = daoP.consultaNuevoProducto();
 			
 			sess.setAttribute("user", null);
 			sess.invalidate();
-				//response.sendRedirect("home");
-				request.getRequestDispatcher("/index.jsp").forward(request, response);
+			
+			
+			request.setAttribute("productos", listaP);
+			request.setAttribute("nuevoP", nuevoP);
+			ServletProducto sp=new ServletProducto();
+			sp.pindex(request, response);
+			//response.sendRedirect("home");
+			//request.getRequestDispatcher("/index.jsp").forward(request, response);
 			
 			
 		} catch (Exception e) {
@@ -268,6 +297,7 @@ public class ServletUsuario extends HttpServlet {
 			obj.setNombres(nom);
 			obj.setCorreo(cor);
 			obj.setPass(pas);
+			obj.setTipo(0);
 
 			dao.insertaUsuario(obj);
 			

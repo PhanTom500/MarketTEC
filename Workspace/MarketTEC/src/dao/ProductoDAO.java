@@ -8,18 +8,21 @@ import bean.ProductoBean;
 public interface ProductoDAO {
 
 	
-	public abstract int eliminaProducto(int idProducto) throws Exception;
-	public abstract int insertaProducto(ProductoBean obj) throws Exception;
-	public abstract int actualizaProducto(ProductoBean obj) throws Exception;
-	public abstract List<ProductoBean> consultaProducto(String filtro) throws Exception;
-	public abstract List<ProductoBean> consultaProductoxCategoria(String cate) throws Exception;
+	public abstract int eliminaProducto(int idProducto);
+	public abstract int insertaProducto(ProductoBean obj);
+	public abstract int actualizaProducto(ProductoBean obj);
+	public abstract List<ProductoBean> consultaProducto(String filtro);
+	public abstract List<ProductoBean> consultaProductoxCategoria(String cate);
 	
 	//Contar productos
-	public abstract List<CantidadBean> cuentaProducto(String filtro) throws Exception;
-	public abstract List<CantidadBean> cuentaProductoxCategoria(String cate) throws Exception;
+	public abstract List<CantidadBean> cuentaProducto(String filtro);
+	public abstract List<CantidadBean> cuentaProductoxCategoria(String cate);
 	
 	//Para mostrar el mas nuevo en index
-	public abstract List<ProductoBean> consultaNuevoProducto() throws Exception;
+	public abstract List<ProductoBean> consultaNuevoProducto();
+	
+	//Para el carrito
+	public abstract List<ProductoBean> consultaProductoxID(int id);
 	
 	
 }

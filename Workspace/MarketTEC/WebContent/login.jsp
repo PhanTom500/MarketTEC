@@ -29,7 +29,9 @@
 <link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
 <link rel="stylesheet" href="css/bootstrap.css"/>
+
 <link rel="stylesheet" href="css/dataTables.bootstrap.min.css"/>
+
 <link rel="stylesheet" href="css/bootstrapValidator.css"/>
 <link rel="stylesheet" href="css/style.css"/>
 	
@@ -1665,9 +1667,8 @@ input {
 
 								<div class="middles">
 									<a class="btn" href="">
-										
-											<i class="fab fa-facebook-f"></i>
-											<fb:login-button  scope="public_profile,email" onlogin="checkLoginState();">
+										<i class="fab fa-facebook-f"></i>
+										<fb:login-button  scope="public_profile,email" onlogin="checkLoginState();">
 										</fb:login-button>
 									</a>
 									
@@ -1898,8 +1899,15 @@ input {
 			var name = profile.getName();
 			//alert('3');
 			var email = profile.getEmail();
-
+			
+			
+			//setTimeout(function(){
+			  //  console.log("Cargar completar datos GM");
+			//}, 600000000000000000);
+			
 			window.location.href = 'completarDatosGM.jsp?id=' + id + '&name=' + name + '&email=' + email +' ';
+
+			
 			
 
 		}

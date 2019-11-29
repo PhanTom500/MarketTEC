@@ -16,7 +16,6 @@
 <link rel="stylesheet" href="css/dataTables.bootstrap.min.css"/>
 <link rel="stylesheet" href="css/bootstrapValidator.css"/>
 
-
   <title>Admin - MarkeTEC | Usuarios</title>
 
   <!-- Font Awesome Icons -->
@@ -67,7 +66,7 @@
         </div>
       </div>
       
-      	<form id="form_head_index" action="producto" class="header_search_form clearfix" method="post">
+      <form id="form_head_index" action="producto" class="header_search_form clearfix" method="post">
 			<input type="hidden" name="metodo" value="pindex">
 		</form>
       
@@ -95,7 +94,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./login-admin.jsp" class="nav-link active">
+                <a href="./login-admin.jsp" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Perfil</p>
                 </a>
@@ -113,7 +112,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./login-admin4.jsp" class="nav-link">
+                <a href="./login-admin4.jsp" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pedido</p>
                 </a>
@@ -529,20 +528,28 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-  	
-	<br>
-
+  	<br>
+ 	<jsp:include page="crudPedido.jsp" />
       
      <!-- AQUI --> 
- 	<jsp:include page="datos_Admin.jsp" />
+      
 
-
-      
-      
-      
-  </div>
   <!-- /.content-wrapper -->
 
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 3.0.0-rc.1
+    </div>
+  </footer>
 </div>
 <!-- ./wrapper -->
 
@@ -581,26 +588,31 @@ function eliminar(id){
 	
 }
 
-function registrar(){	
+function registrar(){
 	$('#idModalRegistra').modal("show");
 }
 
-function editar(id,nombres,correo,pass){	
-	//document.getElementById("id_nombre").value ="ELBITA"
+function formReset()
+{
+document.getElementById("defaultForm").reset();
+}
+
+function editar(id,nombre,descripcion,precio,stock,imagen,categoria,fecRegistro){	
 	
 	$('input[id=id_ID]').val(id);
-	$('input[id=id_nombres]').val(nombres);
-	$('input[id=id_correo]').val(correo);
-	$('input[id=id_pass]').val(pass);
-	//$('select[id=id_estado]').val(estado);
+	$('input[id=id_reg_nombre]').val(nombre);
+	$('[id=id_reg_descripcion]').val(descripcion);
+	$('[id=id_reg_precio]').val(precio);
+	$('[id=id_reg_stock]').val(stock);
+	$('[id=id_reg_imagen]').val(imagen);
+	$('[id=id_cboCategoria]').val(categoria);
 	$('#idModalActualiza').modal("show");
+	formReset();
 }
 
 $(document).ready(function() {
-    $('#tableAlumno').DataTable();
+    $('#table').DataTable();
 } );
-
-
 </script>
 
 <script type="text/javascript">
@@ -614,6 +626,72 @@ $(document).ready(function() {
             validating: 'glyphicon glyphicon-refresh'
         },
         fields: {
+        	nombre: {
+        		selector : '#id_reg_nombre',
+                validators: {
+                    notEmpty: {
+                        message: 'El nombre es un campo obligatorio'
+                    },
+                    stringLength :{
+                    	message:'El nombre es de 5 a 75 caracteres',
+                    	min : 5,
+                    	max : 75
+                    }
+                }
+            },
+            descripcion: {
+            	selector : '#id_reg_descripcion',
+                validators: {
+                    notEmpty: {
+                        message: 'La descripcion es un campo obligatorio'
+                    },
+                    stringLength :{
+                    	message:'La descripcion no debe pasarse de 600',
+                    	min : 1,
+                    	max : 600
+                    }
+                }
+            },
+            precio: {
+        		selector : '#id_reg_precio',
+                validators: {
+                    notEmpty: {
+                        message: 'El precio es un campo obligatorio'
+                    },
+                    regexp: {
+                    	message : 'El precio debe ser un valor numerico',
+                        regexp : /^[1-9]\d{0,7}(?:.\d{1,4})?$/                 
+                    }
+                }
+            },
+            stock: {
+        		selector : '#id_reg_stock',
+                validators: {
+                    notEmpty: {
+                        message: 'El stock es un campo obligatorio'
+                    },
+                    regexp: {
+                    	message : 'El stock debe ser un numero entero y no debe ser muy alto',
+                        regexp : /^[1-9]\d{0,7}$/                 
+                    }
+                }
+            },
+            imagen: {
+        		selector : '#id_reg_imagen',
+                validators: {
+                    notEmpty: {
+                        message: 'La imagen es un campo obligatorio'
+                    }
+                }
+            },
+            categoria: {
+        		selector : '#id_cboCategoria',
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione una categoria'
+                    }
+                }
+            },
            
        	}    
      }).on('error.form.bv', function(e) {

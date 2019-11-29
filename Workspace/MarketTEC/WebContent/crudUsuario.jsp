@@ -28,16 +28,20 @@
 <title>Mantenimiento de Usuarios</title>
 </head>
 <body>
+<header class="container">
 
+</header>
  <div class="container">
- <h1>Crud de Usuarios</h1>
+ 
+ 
+ <h1>Mantenimiento de Usuarios</h1>
 		 <div class="col-md-23" >  
 			  <form id="idFormElimina" action="usuario">
 			  		<input type="hidden" name="metodo" value="elimina">
 			  		<input type="hidden" id="id_elimina" name="id">
 			  </form>	
 				
-		       <form accept-charset="UTF-8"  action="usuario" class="simple_form" id="defaultForm2"  method="post">
+		       <form accept-charset="UTF-8"  action="usuario" class="simple_form" id="defaultForm3"  method="post">
 		       		<input type="hidden" name="metodo" value="lista">
 		       		<div class="row">
 						<div class="col-md-3">	
@@ -48,6 +52,9 @@
 						</div>
 					</div>			
 					<div class="row">
+						<div class="col-md-3">
+							<button type="button" class="btn btn-primary" id="id_volver"  onclick="location.href='login-admin2.jsp';">VOLVER</button><br>&nbsp;<br>
+						</div>
 						<div class="col-md-3">
 							<button type="submit" class="btn btn-primary" id="validateBtnw1" >FILTRA</button><br>&nbsp;<br>
 						</div>
@@ -79,7 +86,7 @@
 														<td>${x.correo}</td>
 														<td>${x.pass}</td>
 														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idUsuario}','${x.nombres}','${x.correo}','${x.pass}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
+															<button type='button' data-toggle='modal' onclick="editar('${x.idUsuario}','${x.nombres}','${x.correo}','${x.pass}','${x.tipo}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
 																<img src='images/edit.gif' width='auto' height='auto' />
 															</button>
 														</td>
@@ -129,13 +136,23 @@
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_reg_correo">Correo</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_correo" name="correo" placeholder="Ingrese el correo" type="text" maxlength="20"/>
+													<input class="form-control" id="id_reg_correo" name="correo" placeholder="Ingrese el correo" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_reg_pass">Pass</label>
 		                                        <div class="col-lg-5">
 													<input class="form-control" id="id_reg_pass" name="pass" placeholder="Ingrese la contraseña" type="password" maxlength="20"/>
+		                                        </div>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_reg_tipo">Tipo</label>
+		                                        <div class="col-lg-5">
+													<select id="id_cboTipo" name="tipo"   class="form-control">
+														<option value=" " >[ Seleccione ]</option>
+														<option value="0" >Normal</option>
+														<option value="1" >Administrador</option>
+													</select>
 		                                        </div>
 		                                    </div>    
 		                                    <div class="form-group">
@@ -166,7 +183,7 @@
 					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza usuario</h4>
 				</div>
 				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="defaultForm" accept-charset="UTF-8"  action="usuario" class="form-horizontal"     method="post">
+						<form id="defaultForm2" accept-charset="UTF-8"  action="usuario" class="form-horizontal"     method="post">
 							<input type="hidden" name="metodo" value="actualiza" >
 		                    <div class="panel-group" id="steps">
 		                        <!-- Step 1 -->
@@ -191,13 +208,23 @@
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_correo">Correo</label>
 		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_correo" name="correo" placeholder="Ingrese el correo" type="text" maxlength="20"/>
+													<input class="form-control" id="id_correo" name="correo" placeholder="Ingrese el correo" type="text" maxlength="40"/>
 		                                        </div>
 		                                    </div>
 		                                    <div class="form-group">
 		                                        <label class="col-lg-3 control-label" for="id_pass">Pass</label>
 		                                        <div class="col-lg-5">
 													<input class="form-control" id="id_pass" name="pass" placeholder="Ingrese la contraseña" type="text" maxlength="20"/>
+		                                        </div>
+		                                    </div>
+		                                    <div class="form-group">
+		                                        <label class="col-lg-3 control-label" for="id_tipo">Tipo</label>
+		                                        <div class="col-lg-5">
+													<select id="id_tipo" name="tipo"   class="form-control">
+														<option value=" " >[ Seleccione ]</option>
+														<option value="0" >Normal</option>
+														<option value="1" >Administrador</option>
+													</select>
 		                                        </div>
 		                                    </div>    
 		                                    <div class="form-group">
@@ -231,14 +258,15 @@ function registrar(){
 	$('#idModalRegistra').modal("show");
 }
 
-function editar(id,nombres,correo,pass){	
+function editar(id,nombres,correo,pass,tipo){	
 	//document.getElementById("id_nombre").value ="ELBITA"
 	
 	$('input[id=id_ID]').val(id);
 	$('input[id=id_nombres]').val(nombres);
 	$('input[id=id_correo]').val(correo);
 	$('input[id=id_pass]').val(pass);
-	//$('select[id=id_estado]').val(estado);
+	$('[id=id_tipo]').val(tipo);
+	
 	$('#idModalActualiza').modal("show");
 }
 
@@ -293,12 +321,46 @@ $(document).ready(function() {
                     },
                     stringLength :{
                     	message:'La contraseña es de 5 a 100 caracteres',
-                    	min : 8,
+                    	min : 5,
                     	max : 100
                     }
                 }
             },
-            nombres: {
+            tipo: {
+        		selector : '#id_cboTipo',
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un tipo de usuario'
+                    }
+                }
+            },
+           
+       	}    
+     }).on('error.form.bv', function(e) {
+            console.log('error');
+
+            // Active the panel element containing the first invalid element
+            var $form         = $(e.target),
+                validator     = $form.data('bootstrapValidator'),
+                $invalidField = validator.getInvalidFields().eq(0),
+                $collapse     = $invalidField.parents('.collapse');
+
+            $collapse.collapse('show');
+    });
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#defaultForm2').bootstrapValidator({
+        message: 'This value is not valid',
+        excluded: ':disabled',
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+        	nombres: {
         		selector : '#id_nombres',
                 validators: {
                     notEmpty: {
@@ -333,6 +395,14 @@ $(document).ready(function() {
                     	message:'La contraseña es de 5 a 100 caracteres',
                     	min : 5,
                     	max : 100
+                    }
+                }
+            },
+            tipo: {
+        		selector : '#id_Tipo',
+                validators: {
+                    notEmpty: {
+                        message: 'Seleccione un tipo de usuario'
                     }
                 }
             },

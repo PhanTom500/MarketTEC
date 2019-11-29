@@ -93,20 +93,134 @@
 								<h3>Correo:</h3>
 								<input type="text" id="contact_form_email" class="contact_form_email input_field" value="${user.getCorreo()}" required="required" data-error="Email is required." readonly="readonly">
 								
-								
 							</div>
 							
+							<br>
+							<div class="contact_form_title" align="center" >Mis Pedidos</div>
+							
+							<div class="row" > 
+								<div class="col-md-12">
+										<div class="content" >
+								
+											<table id="table" class="table table-striped table-bordered" >
+												<thead>
+													<tr>
+														<th>Numero de Pedido</th>
+														<th>Fecha de Registro</th>
+														<th>Estado</th>
+														<th>Detalles </th>
+													
+													</tr>
+												</thead>
+												<tbody>
+														     
+														<c:forEach items="${pedidosUsu }" var="x">
+															<tr>
+																<td>${x.idPedido}</td>
+																<td>${x.fechaRegistro}</td>
+																<td>${x.estado}</td>
+											
+																<td>
+																	<button type='button' data-toggle='modal' onclick="muestraDetalle('${x.idPedido}','${user.getNombres()}','${x.fechaRegistro}','${x.estado }')">
+																		<img src='images/edit.gif' width='auto' height='auto' />
+																	</button>
+																</td>
+		
+															</tr>
+														</c:forEach>
+												</tbody>
+												
+											</table>	
+											
+										</div>	
+								</div>
+							</div>
+							
+							
+											
 							<div class="contact_form_button">
-								<button type="submit" class="button contact_submit_button" onclick="window.location.href='/MarketTEC/index.jsp'">Volver</button>
+								<button type="button" class="button contact_submit_button" onclick="irInicio()">Volver</button>
 							</div>
 						</form>
 
 					</div>
+		
+				</div>
 				</div>
 			</div>
 		</div>
-		<div class="panel"></div>
-	</div>
+	
+	
+	<!-- Modal del CRUD -->
+	<div class="modal fade" id="idModalActualiza">
+		<span class="clearfix"></span>	
+        <div class="modal-dialog" style="max-width: 60%">
+            <div class="modal-content">
+                <div class="modal-header" style="padding: 35px 50px">             
+                    <center><h4 class="modal-title" id="myModalLabel">Datos del Pedido</h4></center>
+                     <button type="button" class="close" data-dismiss="modal" aria-hidden="	true">&times;</button>
+                </div>
+                <div class="modal-body" style="padding: 20px 10px;">
+                	<form id="defaultForm2" accept-charset="UTF-8"  action="pedido" class="form-horizontal" method="post">
+                		<input type="hidden" name="metodo" value="actualiza" >
+		                <div class="panel-group" id="steps">
+               				
+                
+                
+				<div class="container-fluid" >
+					<div class="form-group input-group">
+						<span class="input-group-addon" style="width:150px;">Cliente:</span>
+						<input type="text"  class="form-control" id="id_nombre" readonly="readonly" name="Nombre">
+					</div>
+					<div class="form-group input-group">
+						<span class="input-group-addon" style="width:150px;">Fecha de Registro:</span>
+						<input type="date"  class="form-control" id="id_fecha" readonly="readonly" name="fecha">
+					</div>
+					<div class="form-group input-group">
+						<span class="input-group-addon" style="width:150px;">Estado:</span>
+						<input type="text" class="form-control" id="id_estado" readonly="readonly" name="Estado">
+					</div>
+										
+				</div>
+				
+						
+				<div class="row" > 
+						<div class="col-md-12">
+								<div class="content" >
+									<table id="table_detalle" class="table table-striped table-bordered" >
+										<thead>
+											<tr>
+												<th>Imagen</th>
+												<th>Producto</th>
+												<th>Cantidad</th>
+												<th>Precio</th>
+											</tr>
+										</thead>
+										<tbody>
+												
+										</tbody>
+										
+									</table>	
+									
+								</div>	
+						</div>
+					</div>
+					</div>
+					</form>
+					
+				</div>		
+				
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onclick="limpiarTabla()"><span class="glyphicon glyphicon-remove"></span> Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+		
+	<div class="panel"></div>
+		
+		
+		
 
 	<!-- Map -->
 
@@ -117,134 +231,11 @@
 			</div>
 		</div>
 	</div>
+	
 
-	<!-- Newsletter -->
-
-	<div class="newsletter">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					<div class="newsletter_container d-flex flex-lg-row flex-column align-items-lg-center align-items-center justify-content-lg-start justify-content-center">
-						<div class="newsletter_title_container">
-							<div class="newsletter_icon"><img src="images/send.png" alt=""></div>
-							<div class="newsletter_title">Sign up for Newsletter</div>
-							<div class="newsletter_text"><p>...and receive %20 coupon for first shopping.</p></div>
-						</div>
-						<div class="newsletter_content clearfix">
-							<form action="#" class="newsletter_form">
-								<input type="email" class="newsletter_input" required="required" placeholder="Enter your email address">
-								<button class="newsletter_button">Subscribe</button>
-							</form>
-							<div class="newsletter_unsubscribe_link"><a href="#">unsubscribe</a></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- Footer -->
-
-	<footer class="footer">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-3 footer_col">
-					<div class="footer_column footer_contact">
-						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
-						</div>
-						<div class="footer_title">Got Question? Call Us 24/7</div>
-						<div class="footer_phone">+38 068 005 3570</div>
-						<div class="footer_contact_text">
-							<p>17 Princess Road, London</p>
-							<p>Grester London NW18JR, UK</p>
-						</div>
-						<div class="footer_social">
-							<ul>
-								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fab fa-youtube"></i></a></li>
-								<li><a href="#"><i class="fab fa-google"></i></a></li>
-								<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-lg-2 offset-lg-2">
-					<div class="footer_column">
-						<div class="footer_title">Find it Fast</div>
-						<ul class="footer_list">
-							<li><a href="#">Computers & Laptops</a></li>
-							<li><a href="#">Cameras & Photos</a></li>
-							<li><a href="#">Hardware</a></li>
-							<li><a href="#">Smartphones & Tablets</a></li>
-							<li><a href="#">TV & Audio</a></li>
-						</ul>
-						<div class="footer_subtitle">Gadgets</div>
-						<ul class="footer_list">
-							<li><a href="#">Car Electronics</a></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-lg-2">
-					<div class="footer_column">
-						<ul class="footer_list footer_list_2">
-							<li><a href="#">Video Games & Consoles</a></li>
-							<li><a href="#">Accessories</a></li>
-							<li><a href="#">Cameras & Photos</a></li>
-							<li><a href="#">Hardware</a></li>
-							<li><a href="#">Computers & Laptops</a></li>
-						</ul>
-					</div>
-				</div>
-
-				<div class="col-lg-2">
-					<div class="footer_column">
-						<div class="footer_title">Customer Care</div>
-						<ul class="footer_list">
-							<li><a href="#">My Account</a></li>
-							<li><a href="#">Order Tracking</a></li>
-							<li><a href="#">Wish List</a></li>
-							<li><a href="#">Customer Services</a></li>
-							<li><a href="#">Returns / Exchange</a></li>
-							<li><a href="#">FAQs</a></li>
-							<li><a href="#">Product Support</a></li>
-						</ul>
-					</div>
-				</div>
-
-			</div>
-		</div>
-	</footer>
-
-	<!-- Copyright -->
-
-	<div class="copyright">
-		<div class="container">
-			<div class="row">
-				<div class="col">
-					
-					<div class="copyright_container d-flex flex-sm-row flex-column align-items-center justify-content-start">
-						<div class="copyright_content"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-</div>
-						<div class="logos ml-sm-auto">
-							<ul class="logos_list">
-								<li><a href="#"><img src="images/logos_1.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_2.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_3.png" alt=""></a></li>
-								<li><a href="#"><img src="images/logos_4.png" alt=""></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="footer.jsp" />
+	
+	
 </div>
 
 <script src="js/jquery-3.3.1.min.js"></script>
@@ -260,18 +251,57 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="js/contact_custom.js"></script>
 
 <script type="text/javascript">
-		function cerrarSessionUser() {
+	function cerrarSessionUser() {
 			
-			HttpServletRequest request = ServletActionContext.getRequest();
-			HttpServletResponse response = ServletActionContext.getResponse();
-			HttpSession sess = request.getSession();
-			sess.setAttribute("user", null);
-			sess.invalidate();
+		HttpServletRequest request = ServletActionContext.getRequest();
+		HttpServletResponse response = ServletActionContext.getResponse();
+		HttpSession sess = request.getSession();
+		sess.setAttribute("user", null);
+		sess.invalidate();
 
-			//window.location.href = 'index.jsp';
+		//window.location.href = 'index.jsp';
 			
+	}
+		
+</script>
 
-		}
+<script type="text/javascript">
+	
+function muestraDetalle(id,nombre,fecha,estado){
+	$("#table_detalle").empty();
+	
+	$('input[id=id_nombre]').val(nombre);
+	$('input[id=id_fecha]').val(fecha);
+	$('input[id=id_estado]').val(estado);
+	
+	
+	$.getJSON("pedido",{"metodo":"listaDetalle","id":id},function (data) {
+		console.log(data);
+		$.each(data, function (index, item) { 
+			$("#table_detalle").append("<tr><td><img height='40px' src='"+ item.imagen +"'/></td><td>"+ item.nombre +"</td><td>"+ item.cantidad +"</td><td> $"+ item.precio +"</td></tr>");
+		});
+	});
+	
+	$('#idModalActualiza').modal("show");
+	
+}
+
+function editar(){
+	$('#idModalActualiza').modal("show");
+}
+
+function limpiarTabla(){
+	var table = $('#table_detalle').DataTable();
+	
+	$("#table_detalle").empty();
+	
+}
+
+function irInicio(){	 
+	$('#form_head_index').submit();
+	
+}
+	
 </script>
 
 

@@ -19,7 +19,7 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 	
 
 	@Override
-	public int eliminaUsuario(int idUsuario) throws Exception {
+	public int eliminaUsuario(int idUsuario) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		int salida = -1;
@@ -47,17 +47,18 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public int insertaUsuario(UsuarioBean obj) throws Exception {
+	public int insertaUsuario(UsuarioBean obj)  {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		int salida = -1;
 		try {
-			String sql = "insert into usuario values(null,?,?,?)";
+			String sql = "insert into usuario values(null,?,?,?,?)";
 			conn = new ConectaDB().getAcceso();
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, obj.getNombres());
 			pstm.setString(2, obj.getCorreo());
 			pstm.setString(3, obj.getPass());
+			pstm.setInt(4, obj.getTipo());
 			
 			
 			log.info(pstm);
@@ -78,18 +79,19 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public int actualizaUsuario(UsuarioBean obj) throws Exception {
+	public int actualizaUsuario(UsuarioBean obj) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		int salida = -1;
 		try {
-			String sql = "update usuario set nombres =?, correo =?, pass =? where idusuario =? ";
+			String sql = "update usuario set nombres =?, correo =?, pass =?, tipo =? where idusuario =? ";
 			conn = new ConectaDB().getAcceso();
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, obj.getNombres());
 			pstm.setString(2, obj.getCorreo());
 			pstm.setString(3, obj.getPass());
-			pstm.setInt(4, obj.getIdUsuario());
+			pstm.setInt(4, obj.getTipo());
+			pstm.setInt(5, obj.getIdUsuario());
 			log.info(pstm);
 			
 			salida = pstm.executeUpdate();
@@ -107,7 +109,7 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public List<UsuarioBean> consultaUsuario(String filtro) throws Exception {
+	public List<UsuarioBean> consultaUsuario(String filtro)  {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -127,6 +129,7 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 				bean.setNombres(rs.getString(2));
 				bean.setCorreo(rs.getString(3));
 				bean.setPass(rs.getString(4));
+				bean.setTipo(rs.getInt(5));
 				lista.add(bean);
 			}
 		} catch (Exception e) {
@@ -164,6 +167,7 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 				bean.setNombres(rs.getString(2));
 				bean.setCorreo(rs.getString(3));
 				bean.setPass(rs.getString(4));
+				bean.setTipo(rs.getInt(5));
 				lista.add(bean);
 			}
 		} catch (Exception e) {
@@ -188,7 +192,7 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 		List<UsuarioBean> lista = new ArrayList<UsuarioBean>();
 		
 		try {
-			String sql = "select * from usuario where idusuario = 1 and correo =? and pass=?";
+			String sql = "select * from usuario where tipo = 1 and correo =? and pass=?";
 			conn = new ConectaDB().getAcceso();
 			pstm = conn.prepareStatement(sql);
 			pstm.setString(1, obj.getCorreo());
@@ -202,6 +206,7 @@ public class MySqlUsuarioDAO implements UsuarioDAO {
 				bean.setNombres(rs.getString(2));
 				bean.setCorreo(rs.getString(3));
 				bean.setPass(rs.getString(4));
+				bean.setTipo(rs.getInt(5));
 				lista.add(bean);
 			}
 		} catch (Exception e) {

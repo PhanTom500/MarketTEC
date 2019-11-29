@@ -142,28 +142,7 @@
 											</div>
 											<div class="available_bar"><span style="width:17%"></span></div>
 										</div>
-										<div class="deals_timer d-flex flex-row align-items-center justify-content-start">
-											<div class="deals_timer_title_container">
-												<div class="deals_timer_title">Apúrate!</div>
-												<div class="deals_timer_subtitle">Oferta termina en:</div>
-											</div>
-											<div class="deals_timer_content ml-auto">
-												<div class="deals_timer_box clearfix" data-target-time="">
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_hr" class="deals_timer_hr"></div>
-														<span>horas</span>
-													</div>
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_min" class="deals_timer_min"></div>
-														<span>mins</span>
-													</div>
-													<div class="deals_timer_unit">
-														<div id="deals_timer1_sec" class="deals_timer_sec"></div>
-														<span>segs</span>
-													</div>
-												</div>
-											</div>
-										</div>
+										
 									</div>
 								</div>
 								</c:forEach>
@@ -261,7 +240,7 @@
 															<input type="radio" name="product_color" style="background:#999999">
 														</div>
 														 -->
-														<button class="product_cart_button" onclick="seleccionaProducto(${x.idProducto})">Agregar al carrito</button>
+														<button class="product_cart_button" onclick="seleccionaProducto(${x.idProducto})">Ver Detalles</button>
 													</div>
 												</div>
 												<div class="product_fav"><i class="fas fa-heart"></i></div>
@@ -1317,6 +1296,7 @@
         //alert('test');
         document.forms["frm1"].submit();
       }
+	
 </script>
 
 </body>

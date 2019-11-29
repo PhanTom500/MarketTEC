@@ -65,6 +65,19 @@
           <a href="#" class="d-block">${user.getNombres()}</a>
         </div>
       </div>
+      
+      <form id="form_head_index" action="producto" class="header_search_form clearfix" method="post">
+			<input type="hidden" name="metodo" value="pindex">
+		</form>
+      
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="images/home-white.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="javascript:$('#form_head_index').submit();" class="d-block">Ver Página</a>
+        </div>
+      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -96,6 +109,12 @@
                 <a href="./login-admin3.jsp" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Productos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./login-admin4.jsp" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pedido</p>
                 </a>
               </li>
             </ul>
@@ -510,281 +529,11 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
   	<br>
- 	<div class="container">
- <h1>Crud de Producto</h1>
-		 <div class="col-md-23" >  
-			  <form id="idFormElimina" action="producto">
-			  		<input type="hidden" name="metodo" value="elimina">
-			  		<input type="hidden" id="id_elimina" name="id">
-			  </form>	
-				
-		       <form accept-charset="UTF-8"  action="producto" class="simple_form" id="defaultForm2"  method="post">
-		       		<input type="hidden" name="metodo" value="lista">
-					<div class="row">
-						<div class="col-md-3">	
-							<div class="form-group">
-							  	<label class="control-label" for="id_nombre_filtro">Nombre</label>
-							  	<input class="form-control" id="id_nombre_filtro"  name="filtro" placeholder="Ingrese el nombre" type="text" maxlength="70"/>
-							</div>
-						</div>
-					</div>			
-					<div class="row">
-						<div class="col-md-3">
-							<button type="submit" class="btn btn-primary" id="validateBtnw1" >FILTRA</button><br>&nbsp;<br>
-						</div>
-						<div class="col-md-3">
-							<button type="button" data-toggle='modal' onclick="registrar();"  class='btn btn-success' id="validateBtnw2" >REGISTRA</button><br>&nbsp;<br>
-						</div>
-					</div>
-					<div class="row" > 
-						<div class="col-md-12">
-								<div class="content" >
-						
-									<table class="table" class="table table-striped table-bordered" >
-										<thead>
-											<tr>
-												<th>ID</th>
-												<th>Nombre</th>
-												<th>Precio</th>
-												<th>Stock</th>
-												<th>Imagen</th>
-												<th>Actualiza </th>
-												<th>Elimina </th>
-											</tr>
-										</thead>
-										<tbody>
-												     
-												<c:forEach items="${productos}" var="x">
-													<tr>
-														<td>${x.idProducto}</td>
-														<td>${x.nombre}</td>
-														<td>${x.precio}</td>
-														<td>${x.stock}</td>
-
-														<td><img src="${x.imagen}" height="40"/></td>
-														<td>
-															<button type='button' data-toggle='modal' onclick="editar('${x.idProducto}','${x.nombre}','${x.descripcion}','${x.precio}','${x.stock}','${x.imagen}','${x.categoria}','${x.fecRegistro}');" class='btn btn-success' style='background-color:hsla(233, 100%, 100%, 0);'>
-																<img src='images/edit.gif' width='auto' height='auto' />
-															</button>
-														</td>
-														<td>
-															<button type='button' data-toggle='modal' onclick="eliminar('${x.idProducto}');">
-																<img src='images/delete.gif' width='auto' height='auto' />
-															</button>
-														</td>
-													</tr>
-												</c:forEach>
-										</tbody>
-										
-									</table>	
-									
-								</div>	
-						</div>
-					</div>
-		 		</form>
-		  </div>
-  
-  		 <div class="modal fade" id="idModalRegistra" >
-			<div class="modal-dialog" style="width: 60%">
-		
-				<!-- Modal content-->
-				<div class="modal-content">
-				<div class="modal-header" style="padding: 35px 50px">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Registro de Producto</h4>
-				</div>
-				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="defaultForm" accept-charset="UTF-8" action="producto" class="form-horizontal" method="post">
-							<input type="hidden" name="metodo" value="registra" >
-		                    <div class="panel-group" id="steps">
-		                        <!-- Step 1 -->
-		                        <div class="panel panel-default">
-		                            <div class="panel-heading">
-		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Producto</a></h4>
-		                            </div>
-		                            <div id="stepOne" class="panel-collapse collapse in">
-		                                <div class="panel-body">
-		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_nombre">Nombre</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_nombre" name="nombre" placeholder="Ingrese el Nombre" type="text" maxlength="70"/>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_descripcion">Descripción</label>
-		                                        <div class="col-lg-5">
-													<textarea id="id_reg_descripcion" name="descripcion" cols="60" rows="10" placeholder="Ingrese una descripcion" maxlength="20000" ></textarea>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_precio">Precio</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_precio" name="precio" placeholder="Ingrese el precio" type="text" maxlength="70"/>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_stock">Stock</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_stock" name="stock" placeholder="Ingrese el stock" type="text" maxlength="70"/>
-		                                        </div>
-		                                    </div>
-											<div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_imagen">Link de Imagen</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_imagen" name="imagen" placeholder="Ingrese el link de la imagen" type="text" maxlength="70" onchange="document.getElementById('imagendos').src=this.value;" />
-		                                        </div>
-		                                        <label class="col-lg-3 control-label" for="id_reg_imagen">Subir a <a href="https://imgur.com/" target="_blank">https://imgur.com/</a> </label> 
-		                                    </div>
-		                                    <div class="form-group">
-                                                <label class="col-lg-3 control-label" for="id_reg_previaFoto"></label>
-                                                <div class="col-lg-5">
-                                                		
-                                                    <img id="imagendos" src="" height="250px"/>
-                                                </div>
-                                           </div>
-										   <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_categoria">Categoria</label>
-		                                        <div class="col-lg-5">
-													<select id="id_cboCategoria" name="categoria"   class="form-control">
-														<option value=" " >[ Seleccione ]</option>
-														<option value="Computers & Laptops" >Computers & Laptops</option>
-														<option value="Cameras & Photos" >Cameras & Photos</option>
-														<option value="Hardware" >Hardware</option>
-														<option value="Smartphones & Tablets" >Smartphones & Tablets</option>
-														<option value="TV & Audio" >TV & Audio</option>
-														<option value="Gadgets" >Gadgets</option>
-														<option value="Car Electronics" >Car Electronics</option>
-														<option value="Video Games &; Consoles" >Video Games & Consoles</option>
-														<option value="Accessories" >Accessories</option>
-													</select>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <div class="col-lg-9 col-lg-offset-3">
-		                                        	<button type="submit" class="btn btn-primary">REGISTRA</button>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        
-		                    </div>
-		                </form>   
-				
-				</div>
-			</div>
-		</div>
-			
-		</div>
-  
-		 <div class="modal fade" id="idModalActualiza" >
-			<div class="modal-dialog" style="width: 60%">
-		
-				<!-- Modal content-->
-				<div class="modal-content">
-				<div class="modal-header" style="padding: 35px 50px">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4><span class="glyphicon glyphicon-ok-sign"></span> Actualiza Producto</h4>
-				</div>
-				<div class="modal-body" style="padding: 20px 10px;">
-						<form id="defaultForm" accept-charset="UTF-8"  action="producto" class="form-horizontal" method="post">
-							<input type="hidden" name="metodo" value="actualiza" >
-		                    <div class="panel-group" id="steps">
-		                        <!-- Step 1 -->
-		                        <div class="panel panel-default">
-		                            <div class="panel-heading">
-		                                <h4 class="panel-title"><a data-toggle="collapse" data-parent="#steps" href="#stepOne">Datos del Producto</a></h4>
-		                            </div>
-		                            <div id="stepOne" class="panel-collapse collapse in">
-		                                <div class="panel-body">
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_ID">ID</label>
-		                                        <div class="col-lg-5">
-		                                           <input class="form-control" id="id_ID" readonly="readonly" name="id" type="text" maxlength="8"/>
-		                                        </div>
-		                                     </div>
-		                                     <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_nombre">Nombre</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_nombre" name="nombre" placeholder="Ingrese el Nombre" type="text" maxlength="70"/>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_descripcion">Descripción</label>
-		                                        <div class="col-lg-5">
-													<textarea id="id_reg_descripcion" name="descripcion" cols="60" rows="10" placeholder="Ingrese una descripcion" maxlength="20000" ></textarea>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_precio">Precio</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_precio" name="precio" placeholder="Ingrese el precio" type="text" maxlength="70"/>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_stock">Stock</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_stock" name="stock" placeholder="Ingrese el stock" type="text" maxlength="70"/>
-		                                        </div>
-		                                    </div>
-											<div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_imagen">Link de Imagen</label>
-		                                        <div class="col-lg-5">
-													<input class="form-control" id="id_reg_imagen" name="imagen" placeholder="Ingrese el link de la imagen" type="text" maxlength="70" onchange="document.getElementById('imagentres').src=this.value;" />
-		                                        </div>
-		                                        <label class="col-lg-3 control-label" for="id_reg_imagen">Subir a <a href="https://imgur.com/" target="_blank">https://imgur.com/</a> </label> 
-		                                    </div>
-		                                    <div class="form-group">
-                                                <label class="col-lg-3 control-label" for="id_reg_previaFoto"></label>
-                                                <div class="col-lg-5">
-                                                		
-                                                    <img id="imagentres" src="" height="250px"/>
-                                                </div>
-                                           </div>
-										   <div class="form-group">
-		                                        <label class="col-lg-3 control-label" for="id_reg_categoria">Categoria</label>
-		                                        <div class="col-lg-5">
-													<select id="id_cboCategoria" name="categoria"   class="form-control">
-														<option value=" " >[ Seleccione ]</option>
-														<option value="Computadoras & Laptops" >Computadoras & Laptops</option>
-														<option value="Cameras & Photos" >Cameras & Photos</option>
-														<option value="Hardware" >Hardware</option>
-														<option value="Smartphones & Tablets" >Smartphones & Tablets</option>
-														<option value="TV & Audio" >TV & Audio</option>
-														<option value="Gadgets" >Gadgets</option>
-														<option value="Electronicos de Coches" >Electronicos de Coches</option>
-														<option value="Video Juegos & Consolas" >Video Juegos & Consolas</option>
-														<option value="Accesorios" >Accesorios</option>
-													</select>
-		                                        </div>
-		                                    </div>
-		                                    <div class="form-group">
-		                                        <div class="col-lg-9 col-lg-offset-3">
-		                                        	<button type="submit" class="btn btn-primary">ACTUALIZA</button>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                            </div>
-		                        </div>
-		                        
-		                    </div>
-		                </form>   
-				
-				</div>
-			</div>
-		</div>
-			
-		</div>
-
-
+ 	<jsp:include page="crudProducto.jsp" />
       
      <!-- AQUI --> 
       
-      
-      
-      
-      
-  </div>
+
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->

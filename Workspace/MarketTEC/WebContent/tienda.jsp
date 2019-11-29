@@ -22,6 +22,16 @@
   cursor: pointer;
 }
 
+.nombreCorto {
+     
+     max-width: 150px;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     text-align: center;
+}
+
+
 </style>
 
 <title>MarkeTEC</title>
@@ -42,21 +52,6 @@
 </head>
 
 <body>
-<%
-Connection con;
-String url = "jdbc:mysql://localhost:3306/markettec";
-String Driver = "com.mysql.jdbc.Driver";
-String user="root";
-String clave = "mysql";
-Class.forName(Driver);
-con=DriverManager.getConnection(url,user,clave);
-
-PreparedStatement ps;
-ResultSet rs;
-ps=con.prepareStatement("SELECT idproducto, nombre, substring(descripcion,1,460) as descripcion, precio, stock, imagen, categoria, fecRegistro FROM producto ORDER by idproducto DESC");
-rs = ps.executeQuery();
-
-%>
 
 
 <div class="super_container">
@@ -240,13 +235,12 @@ rs = ps.executeQuery();
 								<!-- Product Item -->
 								<div class="product_item">
 									<div class="product_border"></div>
-									<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="${x.imagen}" alt="" height="100"></div>
+									<div class="product_image d-flex flex-column align-items-center justify-content-center"><img src="${x.imagen}" alt="${x.nombre}" height="100"></div>
 									<div class="product_content">
 										<div class="product_price">$${x.precio}</div>
 										<div class="product_name">
 											<div>
-												
-												<a onclick="seleccionaProducto(${x.idProducto})" tabindex="0">${x.nombre}</a>
+												<p class="nombreCorto"><a onclick="seleccionaProducto(${x.idProducto})" tabindex="0">${x.nombre}</a></p>
 											</div>
 										</div>
 									</div>

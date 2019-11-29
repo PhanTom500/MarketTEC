@@ -26,7 +26,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	
 
 	@Override
-	public int eliminaProducto(int idProducto) throws Exception {
+	public int eliminaProducto(int idProducto) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		int salida = -1;
@@ -54,7 +54,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	}
 
 	@Override
-	public int insertaProducto(ProductoBean obj) throws Exception {
+	public int insertaProducto(ProductoBean obj) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		int salida = -1;
@@ -89,7 +89,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	}
 
 	@Override
-	public int actualizaProducto(ProductoBean obj) throws Exception {
+	public int actualizaProducto(ProductoBean obj) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		int salida = -1;
@@ -124,7 +124,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	}
 
 	@Override
-	public List<ProductoBean> consultaProducto(String filtro) throws Exception {
+	public List<ProductoBean> consultaProducto(String filtro) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -163,7 +163,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	}
 	
 	@Override
-	public List<ProductoBean> consultaProductoxCategoria(String cate) throws Exception {
+	public List<ProductoBean> consultaProductoxCategoria(String cate) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -202,7 +202,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	}
 	
 	@Override
-	public List<CantidadBean> cuentaProducto(String filtro) throws Exception {
+	public List<CantidadBean> cuentaProducto(String filtro) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -236,7 +236,7 @@ public class MySqlProductoDAO implements ProductoDAO {
 	}
 
 	@Override
-	public List<CantidadBean> cuentaProductoxCategoria(String cate) throws Exception {
+	public List<CantidadBean> cuentaProductoxCategoria(String cate) {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -308,7 +308,7 @@ public class MySqlProductoDAO implements ProductoDAO {
     }
 
 	@Override
-	public List<ProductoBean> consultaNuevoProducto() throws Exception {
+	public List<ProductoBean> consultaNuevoProducto()  {
 		Connection conn = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -318,6 +318,45 @@ public class MySqlProductoDAO implements ProductoDAO {
 			String sql = "select * from producto order by idproducto desc limit 1";
 			conn = new ConectaDB().getAcceso();
 			pstm = conn.prepareStatement(sql);
+			log.info(pstm);
+			rs = pstm.executeQuery();
+			ProductoBean bean = null;
+			while(rs.next()){
+				bean = new ProductoBean();
+				bean.setIdProducto(rs.getInt(1));
+				bean.setNombre(rs.getString(2));
+				bean.setDescripcion(rs.getString(3));
+				bean.setPrecio(rs.getDouble(4));
+				bean.setStock(rs.getInt(5));
+				bean.setImagen(rs.getString(6));
+				bean.setCategoria(rs.getString(7));
+				bean.setFecRegistro(rs.getString(8));
+				lista.add(bean);
+			}
+		} catch (Exception e) {
+			log.info(e);
+		} finally {
+			try {
+				if (rs != null)rs.close();
+				if (pstm != null)pstm.close();
+				if (conn != null)conn.close();
+			} catch (SQLException e) {}
+		}
+		return lista;
+	}
+
+	@Override
+	public List<ProductoBean> consultaProductoxID(int id) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		List<ProductoBean> lista = new ArrayList<ProductoBean>();
+		try {
+			String sql = "select * from producto where idproducto = ?";
+			conn = new ConectaDB().getAcceso();
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1,id);
 			log.info(pstm);
 			rs = pstm.executeQuery();
 			ProductoBean bean = null;

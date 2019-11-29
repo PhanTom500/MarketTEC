@@ -22,6 +22,8 @@
 <link rel="stylesheet" type="text/css" href="styles/product_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/product_responsive.css">
 
+<script src="https://cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
+
 
 </head>
 
@@ -31,16 +33,16 @@
 String id = (String) request.getParameter("id");
 
 Connection con;
-String url = "jdbc:mysql://localhost:3306/markettec";
+String url = "jdbc:mysql://node40846-env-8126333.jelastic.saveincloud.net/markettec";
 String Driver = "com.mysql.jdbc.Driver";
 String user="root";
-String clave = "mysql";
+String clave = "PMIbbn19949";
 Class.forName(Driver);
 con=DriverManager.getConnection(url,user,clave);
 
 PreparedStatement ps;
 ResultSet rs;
-ps=con.prepareStatement("SELECT idproducto, nombre, substring(descripcion,1,460) as descripcion, precio, stock, imagen, categoria, fecRegistro FROM producto where idproducto = " + id);
+ps=con.prepareStatement("SELECT idproducto, nombre, substring(descripcion,1,46000) as descripcion, precio, stock, imagen, categoria, fecRegistro FROM producto where idproducto = " + id);
 rs = ps.executeQuery();
 
 %>
@@ -61,7 +63,11 @@ rs = ps.executeQuery();
 	<div class="single_product">
 		<div class="container">
 			<div class="row">
-
+			
+				<form id="form_addProdCar" action="pedido">
+					<input type="hidden" name="metodo" value="carrito">
+					<input type="hidden" id="id_regIdProd" name="idProd" value="<%= id%>">
+				</form>
 			
 				<!-- Selected Image -->
 				<div class="col-lg-5 order-lg-2 order-1">
@@ -74,7 +80,9 @@ rs = ps.executeQuery();
 						<div class="product_category"><%= rs.getString("categoria")%></div>
 						<div class="product_name"><%= rs.getString("nombre")%></div>
 						<div class="rating_r rating_r_4 product_rating"><i></i><i></i><i></i><i></i><i></i></div>
+						<!-- 
 						<div class="product_text"><p><%= rs.getString("descripcion")%></p></div>
+						 -->
 						<div class="order_info d-flex flex-row">
 							<form action="#">
 								<div class="clearfix" style="z-index: 1000;">
@@ -94,13 +102,32 @@ rs = ps.executeQuery();
 								</div>
 
 								<div class="product_price">$<%= rs.getDouble("precio")%></div>
-								<div class="button_container">
-									<button type="button" class="button cart_button">Agregar al carrito</button>
-									<div class="product_fav"><i class="fas fa-heart"></i></div>
-								</div>
-								
+								<c:choose>
+									<c:when test="${user==null }">
+										<div class="button_container">
+											<button type="button" class="button cart_button" onClick="agregaProdCar()">Agregar al carrito</button>
+											<hr>
+											<button type="button" class="button cart_button" onClick="MensajitoModalAddFavErr()">Añadir Favoritos</button>
+											<div class="product_fav"><i class="fas fa-heart"></i></div>
+										</div>
+									</c:when>
+									<c:otherwise>
+										<div class="button_container">
+											<button type="button" class="button cart_button" onclick="agregaProdCar()">Agregar al carrito</button>
+											<hr>
+											<button type="button" class="button cart_button" onclick="agregaFav(<%= id %>);">Añadir Favoritos</button>
+											<div class="product_fav"><i class="fas fa-heart"></i></div>
+										</div>
+									</c:otherwise>
+								</c:choose>
 							</form>
 						</div>
+					</div>
+				</div>
+				<div class="col-lg-9 order-3">
+					<div class="Detalles">
+						<div class="product_name">Descripción</div>
+						<div class="product_text"><p><%= rs.getString("descripcion")%></p></div>
 					</div>
 				</div>
 
@@ -260,6 +287,29 @@ rs = ps.executeQuery();
 		</div>
 	</div>
 	
+	<!-- Modal de advertencia de logueo favoritos -->
+	<div class="modal fade right" id="sideModalTRAggFavErr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-side modal-bottom-right" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title w-100" id="myModalLabel">ALERTA</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        Para realizar esta acción debe iniciar sesión
+	      </div>
+	      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <button type="button" class="btn btn-primary" onClick="location.href='login.jsp'">Iniciar Sesión</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	
 	<jsp:include page="footer.jsp" />
 	
 </div>
@@ -357,6 +407,42 @@ rs = ps.executeQuery();
         //alert('test');
         document.forms["frm1"].submit();
       }
+</script>
+
+<script type="text/javascript">
+
+function agregaProdCar(){	 
+	$('#form_addProdCar').submit();
+	
+}
+
+function agregaFav(idPro){	 
+	$('input[id=id_regIdPro]').val(idPro);
+	$('#form_registraFav').submit();
+	
+}
+</script>
+
+<script type="text/javascript">
+	function MessajeFav() {
+	    //Ingresamos un mensaje
+	    var mensaje = confirm("Inicia sesión para agregar a favoritos");
+	    //Verificamos si el usuario acepto el mensaje
+	    if (mensaje) {
+	        //alert("Por favor Inicia Sesión");
+	        location.href='login.jsp'
+	    }
+	    //Verificamos si el usuario denegó el mensaje
+	    else {
+	        //alert("¡Haz denegado el mensaje!");
+	
+	    }
+	}
+	
+	function MensajitoModalAddFavErr(){
+        $('#sideModalTRAggFavErr').modal("show");
+    }
+	
 </script>
 
 

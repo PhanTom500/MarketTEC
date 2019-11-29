@@ -18,7 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.CantidadBean;
+import bean.DetFavoritoBean;
+import bean.FavoritoBean;
 import bean.ProductoBean;
+import dao.FavoritoDAO;
 import dao.ProductoDAO;
 import fabrica.Fabrica;
 
@@ -46,15 +49,28 @@ public class ServletProducto extends HttpServlet {
 			pindex(request, response);
 		}else if(metodo.equals("tiendaXcate")){
 			tiendaXcate(request, response);
+		}else if(metodo.equals("listaFav")){
+			listaFav(request, response);
+		}else if(metodo.equals("registraFav")){
+			registraFav(request, response);
+		}else if(metodo.equals("eliminaFav")){
+			eliminaFav(request, response);
 		}else if(metodo.equals("actualiza")){
 			actualiza(request, response);
 		}
 	}	
+	
+	//Acciones del crud de Producto
+	
 	protected void lista(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
 		ProductoDAO dao = fabrica.getProductoDAO();
 		
 		String filtro = request.getParameter("filtro");
+		if(filtro == null) {
+			filtro = "";
+		}
+		
 		List<ProductoBean> lista = null;
 		try {
 			lista =  dao.consultaProducto(filtro);
@@ -152,19 +168,27 @@ public class ServletProducto extends HttpServlet {
 		//request.getRequestDispatcher("/login-admin2.jsp").forward(request, response);
 	}
 	
+	//Sección de Tienda
+	
 	protected void ptienda(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
 		ProductoDAO dao = fabrica.getProductoDAO();
+		FavoritoDAO daoFav = fabrica.getFavoritoDAO();
 		
 		
 		String filtro = request.getParameter("filtro");
+		
+		
 		if(filtro == null)
 			filtro = "";
 		List<ProductoBean> lista = null;
 		List<CantidadBean> can = null;
+
+
 		try {
 			lista =  dao.consultaProducto(filtro);
 			can = dao.cuentaProducto(filtro);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
@@ -195,6 +219,8 @@ public class ServletProducto extends HttpServlet {
 		
 	}
 	
+	//Carga de productos del index
+	
 	protected void pindex(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
 		ProductoDAO dao = fabrica.getProductoDAO();
@@ -218,6 +244,88 @@ public class ServletProducto extends HttpServlet {
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 		
 	}
+	
+	// LISTA DE FAVORITOS
+	
+	protected void listaFav(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
+		FavoritoDAO dao = fabrica.getFavoritoDAO();
+		
+		int usu = Integer.parseInt(request.getParameter("idUsuario"));
+		
+		List<DetFavoritoBean> lista = null;
+		List<CantidadBean> can = null;
+		try {
+			lista =  dao.consultaFavorito(usu);
+			can = dao.cuentaFavorito(usu);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		request.setAttribute("favoritos", lista);
+		request.setAttribute("cantFavoritos", can);
+		request.getRequestDispatcher("/favoritos.jsp").forward(request, response);
+		
+	}
+	
+	protected void eliminaFav(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
+		FavoritoDAO dao = fabrica.getFavoritoDAO();
+		
+		int usu = Integer.parseInt(request.getParameter("idUsuario"));
+		String idPro = request.getParameter("id");
+		List<DetFavoritoBean> lista = null;
+		try {
+			dao.eliminaFavorito(Integer.parseInt(idPro));
+			lista =  dao.consultaFavorito(usu);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		request.setAttribute("favoritos", lista);
+		
+		listaFav(request, response);
+		
+		//request.getRequestDispatcher("/favoritos.jsp").forward(request, response);
+		
+	}
+	
+	protected void registraFav(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
+		FavoritoDAO dao = fabrica.getFavoritoDAO();
+		
+		int idUsu = Integer.parseInt(request.getParameter("idUsu"));
+		int idPro = Integer.parseInt(request.getParameter("idPro"));
+		
+		List<DetFavoritoBean> lista = null;
+		List<CantidadBean> can = null;
+		try {
+			FavoritoBean obj = new FavoritoBean(); 
+			obj.setIdUsuario(idUsu);
+			obj.setIdProducto(idPro);
+
+			dao.insertaFavorito(obj);
+			
+			lista =  dao.consultaFavorito(idUsu);
+			can = dao.cuentaFavorito(idUsu);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("favoritos", lista);
+		request.setAttribute("cantFavoritos", can);
+		request.getRequestDispatcher("/favoritos.jsp").forward(request, response);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	public static byte[] getBytesFromFile(File file) throws IOException {

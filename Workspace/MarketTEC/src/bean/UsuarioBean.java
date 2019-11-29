@@ -6,6 +6,7 @@ public class UsuarioBean {
 	private String nombres;
 	private String correo;
 	private String pass;
+	private int tipo;
 	
 	
 	public int getIdUsuario() {
@@ -31,6 +32,12 @@ public class UsuarioBean {
 	}
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+	public int getTipo() {
+		return tipo;
+	}
+	public void setTipo(int tipo) {
+		this.tipo = tipo;
 	}
 	
 	
