@@ -52,6 +52,15 @@ public class ProductoRest {
 	}
 	
 	@GET
+	@Path("/id/{idProd}")
+	@Produces({ MediaType.APPLICATION_JSON })
+	public Response consulta(@PathParam("idProd") int idProd) {
+		log.info("consulta rest -> " + idProd);
+		
+		return Response.ok(dao.consultaProductoxID(idProd)).build();
+	}
+	
+	@GET
 	@Path("/consultaCate/{cate}")
 	@Produces({ MediaType.APPLICATION_JSON })
 	public Response consultaXCate(@PathParam("cate") String cate) {

@@ -13,7 +13,7 @@
 
 .cart_item_text {
      
-     max-width: 100px;
+     max-width: 200px;
      white-space: nowrap;
      overflow: hidden;
      text-overflow: ellipsis;
@@ -78,20 +78,24 @@
 											<div class="cart_item_title">Categoria</div>
 											<div class="cart_item_text">${x.categoria}</div>
 										</div>
+										<!-- 
 										<div class="cart_item_quantity cart_info_col">
 											<div class="cart_item_title">Cantidad</div>
 											<div class="cart_item_text">
 												<input type='text' class='cantidad form-control' data-id='${x.idProducto}' style=' width:50px' id="id_prod_cant" name="cantidad" maxlength="2" value="1">
 											</div>
 										</div>
+										 -->
 										<div class="cart_item_price cart_info_col">
-											<div class="cart_item_title">Precio</div>
+											<div class="cart_item_title">Precio Unitario</div>
 											<div class="cart_item_text">$${x.precio}</div>
 										</div>
+										<!-- 
 										<div class="cart_item_total cart_info_col">
 											<div class="cart_item_title">Subtotal</div>
 											<div class="cart_item_text">$<span class='price-f'>${x.precio}</span></div>
 										</div>
+										 -->
 										<div class="cart_item_total cart_info_col">
 											<div class="cart_item_title"></div>
 											<div class="cart_item_text">
@@ -127,7 +131,17 @@
 									<button type="button" class="button cart_button_checkout" onclick="MensajitoModalInicSes()">Finalizar Compra</button>
 								</c:when>
 								<c:otherwise>
-									<button type="button" class="button cart_button_checkout" onclick="registraPedido()">Finalizar Compra</button>
+								
+									<c:choose>
+										<c:when test="${listaCarrito==null}">
+											<button type="button" class="button cart_button_checkout" onclick="MensajitoModalRegCarr()">Continuar</button>
+										</c:when>
+										<c:otherwise>
+											<button type="button" class="button cart_button_checkout" onclick="irCaja()">Continuar</button>
+										</c:otherwise>
+										
+									</c:choose>
+									
 								</c:otherwise>
 							</c:choose>
 							
@@ -186,6 +200,29 @@
 	  </div>
 	</div>
 	
+	<!-- Modal de error de registro de carrito -->
+	<div class="modal fade right" id="sideModalTRRegCarr" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-side modal-bottom-right" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h4 class="modal-title w-100" id="myModalLabel">ALERTA</h4>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        No hay ningún producto agregado al carrito de compras
+	      </div>
+	      <div class="modal-footer">
+		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+		        <!-- 
+		        <button type="button" class="btn btn-primary" onClick="location.href='login.jsp'">Iniciar Sesión</button>
+		         -->
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
 	<jsp:include page="footer.jsp" />
 
 </div>
@@ -211,6 +248,10 @@ function irInicio(){
 function irTienda(){	 
 	$('#form_head').submit();
 	
+}
+
+function irCaja(){
+	window.location.href = 'caja.jsp';
 }
 </script>
 
@@ -239,6 +280,13 @@ function irTienda(){
 		
         $('#sideModalTRIniSes').modal("show");
     }
+	
+	function MensajitoModalRegCarr(){
+		
+        $('#sideModalTRRegCarr').modal("show");
+    }
+	
+	
 	
 
 </script>

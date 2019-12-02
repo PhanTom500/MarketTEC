@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import bean.CantidadBean;
 import bean.DetPedidoBean;
 import bean.PedidoBean;
 import bean.ProductoBean;
@@ -33,6 +34,8 @@ public class ServletPedido extends HttpServlet {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 	private List<ProductoBean> carritoProductos = new ArrayList<ProductoBean>();
+	
+	private List<CantidadBean> cantProductos = new ArrayList<CantidadBean>();
 
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -97,6 +100,7 @@ public class ServletPedido extends HttpServlet {
 		
 		if (sess.getAttribute("listaCarrito") != null) {
 			carritoProductos = (ArrayList<ProductoBean>) sess.getAttribute("listaCarrito");
+			cantProductos = (ArrayList<CantidadBean>) sess.getAttribute("cantProdCarrito");
 		}
 
 		try {
@@ -115,11 +119,15 @@ public class ServletPedido extends HttpServlet {
 			int idPed = pedi.get(0).getIdPedido();
 			
 			for (int i = 0; i < carritoProductos.size(); i++) {
+				int cant = cantProductos.get(i).getCantidad();
+				double precio = carritoProductos.get(i).getPrecio();
+				double subtotal = cant * precio;
+				
 				DetPedidoBean objDet = new DetPedidoBean();
 				objDet.setIdPedido(idPed);
 				objDet.setIdProducto(carritoProductos.get(i).getIdProducto());
-				objDet.setCantidad(5);
-				objDet.setPrecio(500);
+				objDet.setCantidad(cant);
+				objDet.setPrecio(subtotal);
 				
 				dao.insertaDetPedido(objDet);
 			}
@@ -131,7 +139,9 @@ public class ServletPedido extends HttpServlet {
 		
 		//Limpiar el carrito
 		carritoProductos.clear();
+		cantProductos.clear();
 		sess.setAttribute("listaCarrito", null);
+		sess.setAttribute("cantProdCarrito", null);
 		
 		sp.pindex(request, response);
 
@@ -219,15 +229,23 @@ public class ServletPedido extends HttpServlet {
 		ProductoDAO proDAO = fabrica.getProductoDAO();
 
 		HttpSession sess = request.getSession();
+		
+		int idProducto = Integer.parseInt(request.getParameter("idProd"));
+		int cantProd = Integer.parseInt(request.getParameter("cantidad"));
 
 		if (sess.getAttribute("listaCarrito") != null) {
 			carritoProductos = (ArrayList<ProductoBean>) sess.getAttribute("listaCarrito");
+			cantProductos = (ArrayList<CantidadBean>) sess.getAttribute("cantProdCarrito");
 		}
-		int idProducto = Integer.parseInt(request.getParameter("idProd"));
+		
 
 		try {
 			// se quiere agregar uno nuevo
 			List<ProductoBean> e = proDAO.consultaProductoxID(idProducto);
+			
+			CantidadBean canBean = new CantidadBean();
+			canBean.setCantidad(cantProd);
+			
 			boolean exist = false;
 			if (e.size() > 0) {
 
@@ -237,14 +255,17 @@ public class ServletPedido extends HttpServlet {
 						break;
 					}
 				}
-				if (exist) {
+				
+				if (exist == true) {
 
-					// response.sendRedirect("carrito.jsp");
-					request.getRequestDispatcher("/carrito.jsp").forward(request, response);
+					//response.sendRedirect("/carrito.jsp");
+					//request.getRequestDispatcher("/carrito.jsp").forward(request, response);
 				} else {
 
 					carritoProductos.add(e.get(0));
+					cantProductos.add(canBean);
 					sess.setAttribute("listaCarrito", carritoProductos);
+					sess.setAttribute("cantProdCarrito", cantProductos);
 				}
 			}
 
@@ -256,50 +277,6 @@ public class ServletPedido extends HttpServlet {
 
 	}
 	
-	protected void registraCarrito(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		
-		Fabrica fabrica = Fabrica.getFabrica(Fabrica.MYSQL);
-		ProductoDAO proDAO = fabrica.getProductoDAO();
-
-		HttpSession sess = request.getSession();
-
-		if (sess.getAttribute("listaCarrito") != null) {
-			carritoProductos = (ArrayList<ProductoBean>) sess.getAttribute("listaCarrito");
-		}
-		
-		int idProducto = Integer.parseInt(request.getParameter("idProd"));
-
-		try {
-			// se quiere agregar uno nuevo
-			List<ProductoBean> e = proDAO.consultaProductoxID(idProducto);
-			boolean exist = false;
-			if (e.size() > 0) {
-
-				for (ProductoBean y : carritoProductos) {
-					if (y.getIdProducto() == e.get(0).getIdProducto()) {
-						exist = true;
-						break;
-					}
-				}
-				if (exist) {
-
-					// response.sendRedirect("carrito.jsp");
-					request.getRequestDispatcher("/carrito.jsp").forward(request, response);
-				} else {
-
-					carritoProductos.add(e.get(0));
-					sess.setAttribute("listaCarrito", carritoProductos);
-				}
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		// request.setAttribute("pedidos", lista);
-		request.getRequestDispatcher("/carrito.jsp").forward(request, response);
-
-	}
 
 	protected void eliminaCarrito(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -312,11 +289,13 @@ public class ServletPedido extends HttpServlet {
 		try {
 			if (sess.getAttribute("listaCarrito") != null) {
 				carritoProductos = (ArrayList<ProductoBean>) sess.getAttribute("listaCarrito");
+				cantProductos = (ArrayList<CantidadBean>) sess.getAttribute("cantProdCarrito");
 			}
 
 			for (ProductoBean b : carritoProductos) {
 				if (b.getIdProducto() == Integer.valueOf(request.getParameter("id"))) {
 					carritoProductos.remove(b);
+					//cantProductos.remove(b.);
 					break;
 				}
 			}

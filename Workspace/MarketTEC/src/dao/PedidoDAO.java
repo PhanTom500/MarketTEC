@@ -24,6 +24,7 @@ public interface PedidoDAO {
 	//DAO para el detalle en tabla del crud
 	
 	public abstract List<TbDetPedidoBean> consultaDetPedido(int idPedido); //Se muestra en la tabla del modal
+	public abstract List<DetPedidoBean> consultaDetPedidoxID(int idPedido);
 	
 	
 	

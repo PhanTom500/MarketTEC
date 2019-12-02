@@ -288,6 +288,44 @@ public class MySqlPedidoDAO implements PedidoDAO {
 		return lista;
 	}
 
+	@Override
+	public List<DetPedidoBean> consultaDetPedidoxID(int idPedido) {
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		
+		List<DetPedidoBean> lista = new ArrayList<DetPedidoBean>();
+		try {
+			String sql = "SELECT * FROM detalle_pedido where idpedido = ?;";
+			conn = new ConectaDB().getAcceso();
+			pstm = conn.prepareStatement(sql);
+			pstm.setInt(1, idPedido);
+			log.info(pstm);
+			rs = pstm.executeQuery();
+			DetPedidoBean bean = null;
+			while(rs.next()){
+				bean = new DetPedidoBean();
+				bean.setIdDetPedido(rs.getInt(1));
+				bean.setIdPedido(rs.getInt(2));
+				bean.setIdProducto(rs.getInt(3));
+				bean.setCantidad(rs.getInt(4));
+				bean.setPrecio(rs.getDouble(5));
+				
+				lista.add(bean);
+			}
+		} catch (Exception e) {
+			log.info(e);
+		} finally {
+			try {
+				if (rs != null)rs.close();
+				if (pstm != null)pstm.close();
+				if (conn != null)conn.close();
+			} catch (SQLException e) {}
+		}
+		return lista;
+		
+	}
+
 	
 
 	

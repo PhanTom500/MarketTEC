@@ -27,6 +27,12 @@
 
 </head>
 
+<!-- node40846-env-8126333.jelastic.saveincloud.net -->
+<!-- PMIbbn19949 -->
+
+<!-- localhost:3306 -->
+<!-- mysql -->
+
 <body>
 <%
 
@@ -54,6 +60,7 @@ rs = ps.executeQuery();
 		<jsp:include page="header.jsp" />
 	</header>
 	
+	
 	<%
 		while(rs.next()){
 	%>
@@ -63,11 +70,13 @@ rs = ps.executeQuery();
 	<div class="single_product">
 		<div class="container">
 			<div class="row">
-			
+				
+				<!--  
 				<form id="form_addProdCar" action="pedido">
 					<input type="hidden" name="metodo" value="carrito">
 					<input type="hidden" id="id_regIdProd" name="idProd" value="<%= id%>">
 				</form>
+				-->
 			
 				<!-- Selected Image -->
 				<div class="col-lg-5 order-lg-2 order-1">
@@ -84,19 +93,24 @@ rs = ps.executeQuery();
 						<div class="product_text"><p><%= rs.getString("descripcion")%></p></div>
 						 -->
 						<div class="order_info d-flex flex-row">
-							<form action="#">
+							
+							<form id="form_addProdCar" action="pedido">
+								<input type="hidden" name="metodo" value="carrito">
+								<input type="hidden" id="id_regIdProd" name="idProd" value="<%= id%>">
+								
 								<div class="clearfix" style="z-index: 1000;">
 
 									<!-- Product Quantity -->
 									<div class="product_quantity clearfix">
 										<span>Cantidad: </span>
-										<input id="quantity_input" type="text" pattern="[0-9]*" value="1">
+										<input id="quantity_input" name="cantidad" type="text" pattern="[0-9]*" value="1">
 										<div class="quantity_buttons">
 											<div id="quantity_inc_button" class="quantity_inc quantity_control"><i class="fas fa-chevron-up"></i></div>
 											<div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fas fa-chevron-down"></i></div>
 										</div>
+										
 									</div>
-
+									
 									
 
 								</div>

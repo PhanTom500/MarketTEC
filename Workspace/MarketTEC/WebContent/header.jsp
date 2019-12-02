@@ -234,7 +234,7 @@
 									<img src="images/cart.png" alt="">
 									 
 									<div class="cart_count">
-										<span></span>
+										<span>0</span>
 									</div>
 									 
 								</div>

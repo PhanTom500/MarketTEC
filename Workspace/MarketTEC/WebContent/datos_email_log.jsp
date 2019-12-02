@@ -301,6 +301,10 @@ function irInicio(){
 	$('#form_head_index').submit();
 	
 }
+
+$(document).ready(function() {
+    $('#table').DataTable();
+} );
 	
 </script>
 

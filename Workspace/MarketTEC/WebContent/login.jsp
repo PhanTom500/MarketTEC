@@ -1466,133 +1466,126 @@ input {
 			</div>
 			<!-- TERMS -->
 			<div class="terms">
-				<h2>dp Terms of Service</h2>
-				<p class="small">Last modified: September 23, 2017</p>
-				<h3>Welcome to dp</h3>
-				<p>By using our Services, you are agreeing to these terms.
-					Please read them carefully.</p>
-				<p>Our Services are very diverse, so sometimes additional terms
-					or product requirements (including age requirements) may apply.
-					Additional terms will be available with the relevant Services, and
-					those additional terms become part of your agreement with us if you
-					use those Services.</p>
-				<h3>Using our Services</h3>
-				<p>You must follow any policies made available to you within the
-					Services.</p>
-				<p>Using our Services does not give you ownership of any
-					intellectual property rights in our Services or the content you
-					access. You may not use content from our Services unless you obtain
-					permission from its owner or are otherwise permitted by law. These
-					terms do not grant you the right to use any branding or logos used
-					in our Services. Dont remove, obscure, or alter any legal notices
-					displayed in or along with our Services.</p>
-				<p>In connection with your use of the Services, we may send you
-					service announcements, administrative messages, and other
-					information. You may opt out of some of those communications.</p>
-				<h3>Your dp Account</h3>
-				<p>You may need a dp Account in order to use some of our
-					Services. You may create your own dp Account, or your dp Account
-					may be assigned to you by an administrator, such as your employer
-					or educational institution. If you are using a dp Account assigned
-					to you by an administrator, different or additional terms may apply
-					and your administrator may be able to access or disable your
-					account.</p>
-				<p>To protect your dp Account, keep your password confidential.
-					You are responsible for the activity that happens on or through
-					your dp Account. Try not to reuse your dp Account password on
-					third-party applications.</p>
-				<h3>Privacy and Copyright Protection</h3>
-				<p>dps privacy policies explain how we treat your personal data
-					and protect your privacy when you use our Services. By using our
-					Services, you agree that dp can use such data in accordance with
-					our privacy policies.</p>
-				<p>We respond to notices of alleged copyright infringement and
-					terminate accounts of repeat infringers according to the process
-					set out in the U.S. Digital Millennium Copyright Act.</p>
-				<p>We provide information to help copyright holders manage their
-					intellectual property online. If you think somebody is violating
-					your copyrights and want to notify us, you can find information
-					about submitting notices and dps policy about responding to
-					notices in our Help Center.</p>
-				<h3>Modifying and Terminating our Services</h3>
-				<p>We are constantly changing and improving our Services. We may
-					add or remove functionalities or features, and we may suspend or
-					stop a Service altogether.</p>
-				<p>You can stop using our Services at any time, although well
-					be sorry to see you go. dp may also stop providing Services to you,
-					or add or create new limits to our Services at any time.</p>
-				<p>We believe that you own your data and preserving your access
-					to such data is important. If we discontinue a Service, where
-					reasonably possible, we will give you reasonable advance notice and
-					a chance to get information out of that Service.</p>
-				<h3>Our Warranties and Disclaimers</h3>
-				<p>We provide our Services using a commercially reasonable level
-					of skill and care and we hope that you will enjoy using them. But
-					there are certain things that we dont promise about our Services.</p>
-				<p>OTHER THAN AS EXPRESSLY SET OUT IN THESE TERMS OR ADDITIONAL
-					TERMS, NEITHER dp NOR ITS SUPPLIERS OR DISTRIBUTORS MAKE ANY
-					SPECIFIC PROMISES ABOUT THE SERVICES. FOR EXAMPLE, WE DONT MAKE
-					ANY COMMITMENTS ABOUT THE CONTENT WITHIN THE SERVICES, THE SPECIFIC
-					FUNCTIONS OF THE SERVICES, OR THEIR RELIABILITY, AVAILABILITY, OR
-					ABILITY TO MEET YOUR NEEDS. WE PROVIDE THE SERVICES AS IS.</p>
-				<p>SOME JURISDICTIONS PROVIDE FOR CERTAIN WARRANTIES, LIKE THE
-					IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-					PURPOSE AND NON-INFRINGEMENT. TO THE EXTENT PERMITTED BY LAW, WE
-					EXCLUDE ALL WARRANTIES.</p>
-				<h3>Liability for our Services</h3>
-				<p>WHEN PERMITTED BY LAW, dp, AND dpS SUPPLIERS AND
-					DISTRIBUTORS, WILL NOT BE RESPONSIBLE FOR LOST PROFITS, REVENUES,
-					OR DATA, FINANCIAL LOSSES OR INDIRECT, SPECIAL, CONSEQUENTIAL,
-					EXEMPLARY, OR PUNITIVE DAMAGES.</p>
-				<p>TO THE EXTENT PERMITTED BY LAW, THE TOTAL LIABILITY OF dpS,
-					AND ITS SUPPLIERS AND DISTRIBUTORS, FOR ANY CLAIMS UNDER THESE
-					TERMS, INCLUDING FOR ANY IMPLIED WARRANTIES, IS LIMITED TO THE
-					AMOUNT YOU PAID US TO USE THE SERVICES (OR, IF WE CHOOSE, TO
-					SUPPLYING YOU THE SERVICES AGAIN).</p>
-				<p>IN ALL CASES, dp, AND ITS SUPPLIERS AND DISTRIBUTORS, WILL
-					NOT BE LIABLE FOR ANY LOSS OR DAMAGE THAT IS NOT REASONABLY
-					FORESEEABLE.</p>
-				<h3>About these Terms</h3>
-				<p>We may modify these terms or any additional terms that apply
-					to a Service to, for example, reflect changes to the law or changes
-					to our Services. You should look at the terms regularly. Well post
-					notice of modifications to these terms on this page. Well post
-					notice of modified additional terms in the applicable Service.
-					Changes will not apply retroactively and will become effective no
-					sooner than fourteen days after they are posted. However, changes
-					addressing new functions for a Service or changes made for legal
-					reasons will be effective immediately. If you do not agree to the
-					modified terms for a Service, you should discontinue your use of
-					that Service.</p>
-				<p>If you do not comply with these terms, and we dont take
-					action right away, this doesnt mean that we are giving up any
-					rights that we may have (such as taking action in the future).</p>
-				<p>The laws of California, U.S.A., excluding Californias
-					conflict of laws rules, will apply to any disputes arising out of
-					or relating to these terms or the Services. All claims arising out
-					of or relating to these terms or the Services will be litigated
-					exclusively in the federal or state courts of Santa Clara County,
-					California, USA, and you and dp consent to personal jurisdiction in
-					those courts.</p>
-				<p>For information about how to contact dp, please visit our
-					contact page.</p>
+				<h2>Términos de Servicio</h2>
+				<p class="small">Última Modificación: Noviembre 29, 2019</p>
+				<h3>Bienvenido a MarketTEC</h3>
+				<p>Al usar nuestros Servicios, usted acepta estos términos.
+				Por favor, léalos detenidamente</p>
+				<p>Nuestros servicios son muy diversos, por lo que a veces hay términos adicionales
+					o pueden aplicarse requisitos del producto (incluidos los requisitos de edad).
+					Términos adicionales estarán disponibles con los Servicios relevantes, y
+					esos términos adicionales se convierten en parte de su acuerdo con nosotros si usted
+					usa esos servicios.</p>
+				<h3>Usando nuestros servicios</h3>
+				<p>Debe seguir cualquier política que esté disponible dentro de los
+					Servicios</p>
+				<p>El uso de nuestros Servicios no le otorga la propiedad de ningún derecho 
+					de propiedad intelectual sobre nuestros Servicios o el contenido al que accede. 
+					No puede usar el contenido de nuestros Servicios a menos que obtenga
+					permiso de su propietario o de otra manera están permitidos por la ley. 
+					Estos términos no le otorgan el derecho de usar la marca o los logotipos 
+					utilizados en nuestros Servicios. No elimine, oculte ni altere ningún aviso 
+					legal que aparezca en nuestros Servicios o junto con ellos.</p>
+				<p>En relación con su uso de los Servicios, podemos enviarle anuncios de servicio, 
+					mensajes administrativos y otra información. Puede optar por no recibir algunas 
+					de esas comunicaciones.</p>
+				<h3>Tu cuenta de MarketTEC</h3>
+				<p>Es posible que necesite una cuenta MarketTEC para utilizar algunos de nuestros 
+					servicios. Puede crear su propia cuenta MarketTEC, o su cuenta MarketTEC puede 
+					ser asignada por un administrador, como su empleador o institución educativa. 
+					Si está utilizando una cuenta MarketTEC que le asignó un administrador, se pueden 
+					aplicar términos diferentes o adicionales y su administrador podrá acceder o 
+					deshabilitar su cuenta.</p>
+				<p>Para proteger su cuenta MarketTEC, mantenga su contraseña confidencial. Usted es 
+					responsable de la actividad que ocurre en la página a través de su cuenta MarketTEC. 
+					Intente no reutilizar la contraseña de su cuenta MarketTEC en aplicaciones de terceros.</p>
+				<h3>Privacidad y Protección de Copyright</h3>
+				<p>Las políticas de privacidad de MarketTEC explican cómo tratamos sus datos personales y 
+					cómo protegemos su privacidad cuando utiliza nuestros Servicios. Al usar nuestros 
+					Servicios, usted acepta que MarketTEC puede usar dichos datos de acuerdo con 
+					nuestras políticas de privacidad.</p>
+				<p>Respondemos a las notificaciones de presuntas infracciones de los derechos 
+					de autor y cancelamos las cuentas de los infractores reincidentes de acuerdo 
+					con el proceso establecido en la Ley de Derechos de Autor del Milenio Digital de EE. UU.</p>
+				<p>Proporcionamos información para ayudar a los titulares de derechos de autor a administrar 
+					su propiedad intelectual en línea. Si cree que alguien está violando sus derechos de 
+					autor y quiere notificarnos, puede encontrar información sobre cómo enviar avisos y 
+					la política de MarketTECMobile sobre cómo responder a avisos en nuestro Centro de ayuda.</p>
+				<h3>Modificando y Terminando nuestros Servicios</h3>
+				<p>Estamos constantemente cambiando y mejorando nuestros Servicios. Podemos agregar o eliminar 
+					funcionalidades o características, y podemos suspender o detener un Servicio por completo.</p>
+				<p>Puedes dejar de usar nuestros Servicios en cualquier momento, aunque lamentamos 
+					verte partir. MarketTEC también puede dejar de proporcionarle Servicios, o agregar 
+					o crear nuevos límites a nuestros Servicios en cualquier momento.</p>
+				<p>Creemos que usted es el propietario de sus datos y es importante preservar su acceso a 
+					dichos datos. Si descontinuamos un Servicio, cuando sea razonablemente posible, le daremos 
+					un aviso anticipado razonable y la oportunidad de obtener información de ese Servicio.</p>
+				<h3>Nuestras garantías y renuncias</h3>
+				<p>Proporcionamos nuestros Servicios utilizando un nivel comercialmente razonable 
+					de habilidad y cuidado y esperamos que disfrute de usarlos. Pero hay ciertas 
+					cosas que no prometemos sobre nuestros Servicios.</p>
+				<p>Aparte de lo expresamente establecido en estos términos o términos adicionales, 
+					ni MarketTEC ni sus proveedores o distribuidores hacen ninguna promesa específica 
+					sobre los servicios. POR EJEMPLO, NO HACEMOS NINGÚN COMPROMISO SOBRE EL CONTENIDO 
+					DENTRO DE LOS SERVICIOS, LAS FUNCIONES ESPECÍFICAS DE LOS SERVICIOS, O SU 
+					CONFIABILIDAD, DISPONIBILIDAD O CAPACIDAD PARA CUMPLIR CON SUS NECESIDADES. 
+					PROVEEMOS LOS SERVICIOS TAL CUAL.</p>
+				<p>ALGUNAS JURISDICCIONES PROPORCIONAN CIERTAS GARANTÍAS, COMO LA GARANTÍA 
+					IMPLÍCITA DE COMERCIABILIDAD, IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y 
+					NO INFRACCIÓN EN LA MEDIDA PERMITIDA POR LA LEY, EXCLUYEMOS TODAS LAS GARANTÍAS.</p>
+				<h3>Responsabilidad por nuestros servicios</h3>
+				<p>CUANDO LO PERMITA LA LEY, MarketTEC Y LOS PROVEEDORES Y DISTRIBUIDORES 
+					MarketTECmobile, NO SERÁN RESPONSABLES DE LAS GANANCIAS, INGRESOS 
+					O DATOS, PÉRDIDAS FINANCIERAS O DAÑOS INDIRECTOS, ESPECIALES, 
+					CONSECUENTES, EJEMPLARES O PUNITIVOS.</p>
+				<p>EN LA MEDIDA EN QUE LO PERMITA LA LEY, LA RESPONSABILIDAD TOTAL DE 
+					MarketTECMobile, Y SUS PROVEEDORES Y DISTRIBUIDORES, POR CUALQUIER 
+					RECLAMO BAJO ESTOS TÉRMINOS, INCLUYENDO CUALQUIER GARANTÍA IMPLÍCITA, 
+					SE LIMITA A LA CANTIDAD QUE USTED PAGÓ PARA USAR LOS SERVICIOS (O, SI 
+					ELEGIMOS , PARA SUMINISTRARLE LOS SERVICIOS DE NUEVO).</p>
+				<p>EN TODOS LOS CASOS, MarketTEC, Y SUS PROVEEDORES Y DISTRIBUIDORES, 
+					NO SERÁN RESPONSABLES DE NINGUNA PÉRDIDA O DAÑO QUE NO ES RAZONABLEMENTE PREVISIBLE.</p>
+				<h3>Acerca de los términos</h3>
+				<p>Podemos modificar estos términos o cualquier otro término adicional 
+					que se aplique a un Servicio para, por ejemplo, reflejar cambios en 
+					la ley o cambios en nuestros Servicios. Debes mirar los términos 
+					regularmente. Bueno, publique un aviso de modificaciones a estos 
+					términos en esta página. Publique un aviso de términos adicionales 
+					modificados en el Servicio correspondiente. Los cambios no se aplicarán 
+					retroactivamente y entrarán en vigencia a más tardar catorce días 
+					después de su publicación. Sin embargo, los cambios que aborden 
+					nuevas funciones para un Servicio o los cambios realizados por 
+					razones legales serán efectivos de inmediato. Si no está de 
+					acuerdo con los términos modificados para un Servicio, debe 
+					suspender el uso de ese Servicio.</p>
+				<p>Si no cumple con estos términos y no tomamos medidas de inmediato, 
+					esto no significa que estamos renunciando a ningún derecho que 
+					podamos tener (como tomar medidas en el futuro).</p>
+				<p>Las leyes de California, EE. UU., Excluyendo las reglas de conflicto 
+					de leyes de California, se aplicarán a cualquier disputa que surja 
+					de estos términos o los Servicios o estén relacionados con ellos. 
+					Todos los reclamos que surjan de estos términos o se relacionen con 
+					estos o los Servicios se litigarán exclusivamente en los tribunales 
+					federales o estatales del condado de Santa Clara, California, EE. UU., 
+					Y usted acepta la jurisdicción personal de dichos tribunales.</p>
+				<p>Para una mayor información de como contactar a los encargados de 
+					MarketTEC visite la sección de contacto.</p>
 			</div>
 
 			<!-- RECOVERY -->
 			<div class="recovery">
-				<h2>Password Recovery</h2>
+				<h2>Recuperar Contraseña</h2>
 				<p>
-					Enter either the <strong>email address</strong> or <strong>username</strong>
-					on the account and <strong>click Submit</strong>
+					Ingrese el <strong>correo</strong> 
+					de la cuenta y click en<strong>Recuperar</strong>
 				</p>
-				<p>We'll email instructions on how to reset your password.</p>
+				<p>Se le enviará un correo con pasos para recuperar su cuenta</p>
 				<form class="recovery-form" action="" method="post">
 					<input type="text" class="input" id="user_recover"
-						placeholder="Enter Email or Username Here"> <input
-						type="submit" class="button" value="Submit">
+						placeholder="Ingrese correo"> <input
+						type="submit" class="button" value="Recuperar">
 				</form>
-				<p class="mssg">An email has been sent to you with further
-					instructions.</p>
+				<p class="mssg">Se le ha enviado un correo con las instrucciones de recuperación</p>
 			</div>
 			
 			<form id="form_head_index" action="producto" class="header_search_form clearfix" method="post">
@@ -1609,29 +1602,27 @@ input {
 				<div id="slideshow">
 					<div class="one">
 						<h2>
-							<span>EVENTS</span>
+							<span>PROMOCIONES</span>
 						</h2>
-						<p>Sign up to attend any of hundreds of events nationwide</p>
+						<p>Registrate para poder adquirir cualquiera de nuestros productos</p>
 					</div>
 					<div class="two">
 						<h2>
-							<span>LEARNING</span>
+							<span>GARANTIA</span>
 						</h2>
-						<p>Thousands of instant online classes/tutorials included</p>
+						<p>Disfruta de nuestros productos con una garantía de hasta 1 año!</p>
 					</div>
 					<div class="three">
 						<h2>
-							<span>GROUPS</span>
+							<span>EFICIENCIA</span>
 						</h2>
-						<p>Create your own groups and connect with others that share
-							your interests</p>
+						<p>Estamos para atender tus pedidos las 24 horas del día</p>
 					</div>
 					<div class="four">
 						<h2>
-							<span>SHARING</span>
+							<span>COMPARTE</span>
 						</h2>
-						<p>Share your works and knowledge with the community on the
-							public showcase section</p>
+						<p>Recomienda a tus amigos y familiares para hacer crecer a esta buena familia</p>
 					</div>
 				</div>
 			</div>
@@ -1661,7 +1652,7 @@ input {
 								<input type="text" class="input" id="user_login" name="correo" autocomplete="off" placeholder="Correo"> 
 								<input type="password" class="input" id="user_pass" name="pass" autocomplete="off" placeholder="Contraseña"> 
 								<input type="checkbox" class="checkbox" checked id="remember_me"> 
-								<label class="remenber-me" for="remember_me">Recuerdame</label> 
+								<label class="remenber-me" for="remember_me">Recuérdame</label> 
 								<input type="submit"  id="button" class="btn" value="Ingresar">
 
 
